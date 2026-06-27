@@ -1,273 +1,213 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Creative - Start Bootstrap Theme</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Bootstrap Icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
-        <!-- SimpleLightbox plugin CSS-->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
-    </head>
-            <!-- 네이버 지도 API -->
-        <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=3j0ictb9jw"></script>
-    <body id="page-top">
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>고범종 · 손정원 모바일 청첩장</title>
+    <meta name="description" content="2026년 11월 14일, 고범종 손정원의 결혼식에 초대합니다." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Serif+KR:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="toast" id="musicToast">배경음악이 준비 되었습니다.</div>
+    <button class="music-button" type="button" aria-label="배경음악 재생 또는 일시정지" id="musicToggle">
+      <span></span><span></span><span></span>
+    </button>
 
+    <main class="invitation">
+      <section class="cover section-fade">
+        <div class="cover-photo photo-slot" data-photo="cover">
+          <span>Cover Photo</span>
+        </div>
+        <div class="cover-copy">
+          <p class="eyebrow">We are getting married</p>
+          <h1><span id="groomNameEn">BEOMJONG</span><i>|</i><span id="brideNameEn">JEONGWON</span></h1>
+          <p class="date-line">2026. 11. 14 SAT</p>
+        </div>
+      </section>
 
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
-            <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="#page-top">대한불교조계종 백련정사</a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ms-auto my-2 my-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="#portfolio">사진</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#about">기도, 불공 안내</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#contact">오시는 길</a></li>
-                    </ul>
-                </div>
+      <section class="intro section-fade">
+        <p>
+          사람이 온다는 건<br />
+          실은 어마어마한 일이다.
+        </p>
+        <p>
+          그는 그의 과거와 현재와<br />
+          그리고 그의 미래와 함께 오기 때문이다.
+        </p>
+        <p class="poem-source">- 정현종, '방문객'</p>
+        <div class="intro-photo photo-slot" data-photo="intro">
+          <span>Invitation Photo</span>
+        </div>
+        <p class="invite-text">
+          저희 두 사람이 함께하는 새로운 시작에<br />
+          귀한 발걸음으로 축복해 주시면 감사하겠습니다.
+        </p>
+        <p class="couple-line">신랑 <b id="groomNameKo">고범종</b> · 신부 <b id="brideNameKo">손정원</b></p>
+      </section>
+
+      <section class="wedding-day section-fade" aria-labelledby="weddingDayTitle">
+        <div class="month-mark">
+          <span>N</span><span>o</span><span>v</span><span>2</span><span>0</span><span>2</span><span>6</span>
+        </div>
+        <div class="section-heading">
+          <p>WEDDING DAY</p>
+          <h2 id="weddingDayTitle">2026년 11월 14일 토요일 | 오후 12시</h2>
+          <span>Saturday, November 14, 2026 | PM 12:00</span>
+        </div>
+        <div class="calendar" aria-label="2026년 11월 달력">
+          <div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div>
+          <i></i><i></i><i></i><i></i><i></i><i></i>
+          <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span>
+          <span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><strong>14</strong>
+          <span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span>
+          <span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span>
+          <span>29</span><span>30</span>
+        </div>
+        <div class="countdown" id="countdown" aria-live="polite">
+          <div><b>0</b><span>DAYS</span></div>
+          <div><b>0</b><span>HOURS</span></div>
+          <div><b>0</b><span>MINUTES</span></div>
+          <div><b>0</b><span>SECONDS</span></div>
+        </div>
+        <p class="remaining"><b id="remainingNames">범종 정원</b> 결혼식이 <strong id="remainingDays">0일</strong> 남았습니다</p>
+      </section>
+
+      <section class="family section-fade">
+        <div class="family-row">
+          <p><span id="groomParents">아버지 · 어머니</span>의 아들</p>
+          <b>신랑 <span>고범종</span></b>
+        </div>
+        <div class="family-row">
+          <p><span id="brideParents">아버지 · 어머니</span>의 딸</p>
+          <b>신부 <span>손정원</span></b>
+        </div>
+        <div class="contact-buttons">
+          <a href="tel:010-0000-0000">신랑에게 연락하기</a>
+          <a href="tel:010-0000-0000">신부에게 연락하기</a>
+        </div>
+      </section>
+
+      <section class="about section-fade">
+        <div class="section-heading">
+          <p>ABOUT US</p>
+          <h2>저희 커플을 소개합니다</h2>
+          <span>하나로 이어진 두 개의 마음</span>
+        </div>
+        <div class="profile-grid">
+          <article>
+            <div class="profile-photo photo-slot" data-photo="groom">
+              <span>Groom Photo</span>
             </div>
-        </nav>
-
-        <!-- Masthead-->
-        <header class="masthead">
-            <div class="container px-4 px-lg-5 h-100">
-                <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
-                    <div class="col-lg-8 align-self-end">
-                        <h1 class="text-white font-weight-bold">대한불교조계종 백련정사입니다.</h1>
-                        <hr class="divider" />
-                    </div>
-                    <div class="col-lg-9 align-self-baseline">
-                        <p class="text-white-75 mb-5">수봉산 자락에 위치하고 있는 백련정사는 인천시 유형문화재 제62호인 조선 말기의 칠성도를 소장하고 있으며<br>
-                            대웅전에는 석가모니부처님을 주불로 문수보살님, 보현보살님이 좌우협시보살로 모셔져있습니다.
-                        </p>
-                        <a class="btn btn-primary btn-xl" href="#contact">오시는 길</a>
-                    </div>
-                </div>
+            <p>신랑</p>
+            <h3>고범종</h3>
+            <span>따뜻하고 다정한 사람</span>
+          </article>
+          <article>
+            <div class="profile-photo photo-slot" data-photo="bride">
+              <span>Bride Photo</span>
             </div>
-        </header>
+            <p>신부</p>
+            <h3>손정원</h3>
+            <span>밝고 사랑스러운 사람</span>
+          </article>
+        </div>
+      </section>
 
-        <!-- Portfolio-->
-        <section class="page-section"  id="portfolio">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-lg-8 col-xl-6 text-center">
-                        <h2 class="mt-0">사진</h2>
-                        <hr class="divider" ></hr>
-                    </div>
-                </div>
-            <div class="container-fluid p-0">
-                <div class="row g-0">
-                    <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="assets/img/portfolio/fullsize/portfolio_1.jpg" title="백련정사 보현회">
-                            <img class="img-fluid" src="assets/img/portfolio/thumbnails/portfolio_1.jpg" alt="sdsd" />
-                            <div class="portfolio-box-caption">
-                                <div class="project-category text-white-50">신도회</div>
-                                <div class="project-name">백련정사 보현회</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="assets/img/portfolio/fullsize/portfolio_2.jpg" title="봉사활동">
-                            <img class="img-fluid" src="assets/img/portfolio/thumbnails/portfolio_2.jpg" alt="..." />
-                            <div class="portfolio-box-caption">
-                                <div class="project-category text-white-50">봉사</div>
-                                <div class="project-name">봉사활동</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="assets/img/portfolio/fullsize/portfolio_3.jpg" title="봉사활동">
-                            <img class="img-fluid" src="assets/img/portfolio/thumbnails/portfolio_3.jpg" alt="..." />
-                            <div class="portfolio-box-caption">
-                                <div class="project-category text-white-50">봉사</div>
-                                <div class="project-name">봉사활동</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="assets/img/portfolio/fullsize/portfolio_4.jpg" 
-                        title="매년 신도님들의 정성을 모아서 조금씩이나마 나눔을 하고 있습니다. 
-                               보시 공덕 인연으로 우리 이웃들과 세상이 따뜻해지기를 발원합니다.">
-                            <img class="img-fluid" src="assets/img/portfolio/thumbnails/portfolio_4.jpg" alt="..." />
-                            <div class="portfolio-box-caption">
-                                <div class="project-category text-white-50">후원/보시</div>
-                                <div class="project-name">백미 300kg 기부</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="assets/img/portfolio/fullsize/portfolio_5.jpg" title="칠성도">
-                            <img class="img-fluid" src="assets/img/portfolio/thumbnails/portfolio_5.jpg" alt="..." />
-                            <div class="portfolio-box-caption">
-                                <div class="project-category text-white-50">문화유산</div>
-                                <div class="project-name">칠성도</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="assets/img/portfolio/fullsize/portfolio_6.jpg" title="보현보살 석가모니불 문수보살">
-                            <img class="img-fluid" src="assets/img/portfolio/thumbnails/portfolio_6.jpg" alt="..." />
-                            <div class="portfolio-box-caption p-3">
-                                <div class="project-category text-white-50">대웅전</div>
-                                <div class="project-name">보현보살     석가모니불     문수보살</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
+      <section class="timeline section-fade">
+        <div class="section-heading">
+          <p>OUR TIMELINE</p>
+          <h2>저희 연애의 타임라인입니다</h2>
+          <span>서로에게 참 소중하고 감사한 시간</span>
+        </div>
+        <ol>
+          <li>
+            <div class="timeline-photo photo-slot"><span>Photo</span></div>
+            <p>첫 만남</p>
+            <h3>서로의 하루에 자연스럽게 스며든 날</h3>
+          </li>
+          <li>
+            <div class="timeline-photo photo-slot"><span>Photo</span></div>
+            <p>함께한 여행</p>
+            <h3>오래 기억하고 싶은 풍경을 나눈 날</h3>
+          </li>
+          <li>
+            <div class="timeline-photo photo-slot"><span>Photo</span></div>
+            <p>프로포즈</p>
+            <h3>같은 방향을 바라보기로 약속한 날</h3>
+          </li>
+        </ol>
+      </section>
 
-        <!-- About-->
-        <section class="page-section bg-primary" id="about">
-                <div class="container px-4 px-lg-5">
-                    <div class="row gx-4 gx-lg-5 justify-content-center">
-                        <div class="col-lg-8 text-center">
-                            <h2 class="text-white mt-0">기도, 불공 안내</h2>
-                            <hr class="divider divider-light" />
-                            <p class="text-white-75 mb-4">명절 합동 · 독상 차례 동참안내</p>
-                        </div>
+      <section class="gallery section-fade">
+        <div class="section-heading">
+          <p>GALLERY</p>
+          <h2>우리의 순간들</h2>
+          <span>사진은 나중에 자유롭게 교체할 수 있습니다</span>
+        </div>
+        <div class="gallery-grid">
+          <button class="photo-slot" type="button"><span>Photo</span></button>
+          <button class="photo-slot tall" type="button"><span>Photo</span></button>
+          <button class="photo-slot" type="button"><span>Photo</span></button>
+          <button class="photo-slot wide" type="button"><span>Photo</span></button>
+          <button class="photo-slot" type="button"><span>Photo</span></button>
+        </div>
+      </section>
 
-                        <div class="col-lg-8 text-center">
-                                <div class="table-responsive table-card">
-                                    <table class="table mb-0">
-                                    <thead>
-                                        <tr>
-                                        <th>차례명</th>
-                                        <th>일자</th>
-                                        <th>시간</th>
-                                        <th>장소</th>
-                                        <th>동참금액</th>
-                                        <th>접수일</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>설 합동차례</td>
-                                            <td>음력 1월 1일</td>
-                                            <td>오전 10시30분</td>
-                                            <!-- 장소 전체 병합 -->
-                                            <td rowspan="4" class="align-middle">대웅전</td>
-                                            <td>10만원</td>
-                                            <!-- 접수일 전체 병합 -->
-                                            <td rowspan="4" class="align-middle">한 달 전부터</td>
-                                        </tr>
-                                        <tr>
-                                            <td>설 독상 차례</td>
-                                            <td>음력 1월 1일</td>
-                                            <td>오전 9시</td>
-                                            <td>30만원</td>
-                                        </tr>
-                                        <tr>
-                                            <td>추석 합동차례</td>
-                                            <td>음력 8월 15일</td>
-                                            <td>오전 10시30분</td>
-                                            <td>10만원</td>
-                                        </tr>
-                                        <tr>
-                                            <td>추석 독상차례</td>
-                                            <td>음력 8월 15일</td>
-                                            <td>오전 9시</td>
-                                            <td>30만원</td>
-                                        </tr>
-                                    </tbody>
-                                    </table>
-                                </div>
-                        </div>
-                        <div class="col-lg-8 text-center">
-                            <br>
-                            <a class="btn btn-light btn-xl" href="https://blog.naver.com/PostList.naver?blogId=bang-nyoun&from=postList&categoryNo=6&parentCategoryNo=6">더 자세히 알아보기</a>
-                        </div>
-                </div>
-            </div>
-        </section>
+      <section class="location section-fade">
+        <div class="section-heading">
+          <p>LOCATION</p>
+          <h2>오시는 길</h2>
+          <span>엘마리노 앳 인천</span>
+        </div>
+        <div class="map-box">
+          <span>Map Area</span>
+        </div>
+        <div class="venue">
+          <h3>엘마리노 앳 인천</h3>
+          <p>인천 중구 서해대로 227</p>
+        </div>
+        <div class="route-buttons">
+          <a href="https://buly.kr/CrOS1f" target="_blank" rel="noopener" aria-label="네이버 지도 열기">네이버지도</a>
+          <a href="https://map.kakao.com/link/search/인천%20중구%20서해대로%20227" target="_blank" rel="noopener" aria-label="카카오 지도 열기">카카오맵</a>
+          <a href="https://tmap.life/cd76a6db" target="_blank" rel="noopener" aria-label="T맵 열기">T맵</a>
+        </div>
+      </section>
 
-        <!-- Contact-->
-        <section class="page-section" id="contact">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-lg-8 col-xl-6 text-center">
-                        <h2 class="mt-0">오시는 길</h2>
-                        <hr class="divider" ><hr>
-                    </div>
-                </div>
+      <section class="account section-fade">
+        <div class="section-heading">
+          <p>THANKS TO</p>
+          <h2>마음 전하실 곳</h2>
+          <span>참석이 어려우신 분들을 위해 준비했습니다</span>
+        </div>
+        <details>
+          <summary>신랑측 계좌번호</summary>
+          <p>은행명 000-0000-0000 예금주</p>
+        </details>
+        <details>
+          <summary>신부측 계좌번호</summary>
+          <p>은행명 000-0000-0000 예금주</p>
+        </details>
+      </section>
 
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div id="map" style="width:100%;height:400px;">
-                        <script>
-                        var map = new naver.maps.Map('map', {
-                            center: new naver.maps.LatLng(37.461482, 126.666631),
-                            zoom: 15
-                        });
+      <footer>
+        <p>2026. 11. 14</p>
+        <h2>Thank you</h2>
+        <button type="button" id="shareButton">청첩장 공유하기</button>
+      </footer>
+    </main>
 
-                        var marker = new naver.maps.Marker({
-                            position: new naver.maps.LatLng(37.461482, 126.666631),
-                            map: map
-                        });
-                        </script>
-                    </div>
-                </div>
-                <div class="container px-4 px-lg-5">
-                    <div class="row gx-4 gx-lg-5">
-                        <div class="col-lg-4 col-md-6 text-center">
-                            <div class="mt-5">
-                                <div class="mb-2"><i class="bi-whatsapp fs-1 text-primary"></i></div>
-                                <h3 class="h4 mb-2">전화번호</h3>
-                                <p class="text-muted mb-0">032-868-7711</p>
-                                <p class="text-muted mb-0">010-6541-2635</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 text-center">
-                            <div class="mt-5">
-                                <div class="mb-2"><i class="bi-building fs-1 text-primary"></i></div>
-                                <h3 class="h4 mb-2">주소</h3>
-                                <p class="text-muted mb-0">인천 미추홀구 경인로252번안길 58-16</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 text-center">
-                            <div class="mt-5">
-                                <div class="mb-2"><i class="bi-globe fs-1 text-primary"></i></div>
-                                <h3 class="h4 mb-2">교통안내</h3>
-                                <p class="text-muted mb-0" style="text-align: left;">지하철 : <도화역> 도보 15분 </p>
-                                <p class="text-muted mb-0" style="text-align: left;">시내버스 : <도화초등학교, 수봉도서관> 정류장 도보 7분</p>
-                                <p class="text-muted mb-0" style="text-align: left;">자가차량<br>1. 백련정사에 주차 가능합니다. <br> 
-                                                2. <쑥골배수지 힐링공원> 무료주차 가능합니다. <br>백련정사 후문과 연결 됩니다.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        </section>
+    <nav class="bottom-actions" aria-label="빠른 이동">
+      <a href="#weddingDayTitle">예식일</a>
+      <a href=".gallery">갤러리</a>
+      <a href=".location">오시는 길</a>
+    </nav>
 
-        <!-- Call to action-->
-        <section class="page-section bg-dark text-white">
-            <div class="container px-4 px-lg-5 text-center">
-                <h2 class="mb-4">더 자세한 내용은 블로그를 참조해주세요</h2>
-                <a class="btn btn-light btn-xl" href="https://blog.naver.com/bang-nyoun">Click!</a>
-            </div>
-        </section>
-        <!-- Footer-->
-        <!-- <footer class="bg-light py-5">
-            <div class="container px-4 px-lg-5"><div class="small text-center text-muted">Copyright &copy; 2023 - Company Name</div></div>
-        </footer> -->
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- SimpleLightbox plugin JS-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <!-- * *                               SB Forms JS                               * *-->
-        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-    </body>
+    <script src="./script.js"></script>
+  </body>
 </html>
