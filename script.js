@@ -19,7 +19,7 @@ const invitationConfig = {
   music: "https://hellomybrand.com/wed/audio/12.mp3",
   photos: {
     // 예: cover: "./images/cover.jpg"
-    cover: "",
+    cover: "./assets/gallery/JML_5458.JPG",
     intro: "",
     groom: "",
     bride: "",

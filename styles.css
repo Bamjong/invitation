@@ -72,7 +72,14 @@ footer {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(20, 16, 14, 0.18), rgba(20, 16, 14, 0.82));
+  background:
+    linear-gradient(180deg, rgba(12, 10, 9, 0.34), rgba(12, 10, 9, 0.5) 46%, rgba(12, 10, 9, 0.82)),
+    radial-gradient(circle at 50% 62%, rgba(12, 10, 9, 0.08), rgba(12, 10, 9, 0.38));
+}
+
+.cover .cover-photo.has-photo {
+  background-position: center;
+  background-size: cover;
 }
 
 .cover.is-visible .cover-photo {
@@ -85,7 +92,7 @@ footer {
   padding: 0 28px 126px;
   text-align: center;
   color: white;
-  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.42);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.68);
 }
 
 .cover-copy > * {
