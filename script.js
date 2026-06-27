@@ -1,5 +1,5 @@
 const invitationConfig = {
-  weddingDate: "2026-11-14T12:00:00+09:00",
+  weddingDate: "2026-11-14T16:50:00+09:00",
   groom: {
     ko: "고범종",
     en: "BEOMJONG",
@@ -13,8 +13,10 @@ const invitationConfig = {
   venue: {
     name: "엘마리노 앳 인천",
     address: "인천 중구 서해대로 227",
-    naverMap: "https://buly.kr/CrOS1f",
+    naverMap:
+      "https://map.naver.com/p/search/%EC%97%98%EB%A7%88%EB%A6%AC%EB%85%B8%20%EC%95%B3%20%EC%9D%B8%EC%B2%9C/place/2072432778?c=15.00,0,0,0,dh&isCorrectAnswer=true&placePath=%2Fhome%3Ffrom%3Dmap%26fromPanelNum%3D1%26additionalHeight%3D76%26timestamp%3D202606272233%26locale%3Dko%26svcName%3Dmap_pcv5%26searchText%3D%EC%97%98%EB%A7%88%EB%A6%AC%EB%85%B8%20%EC%95%B3%20%EC%9D%B8%EC%B2%9C",
   },
+  music: "https://hellomybrand.com/wed/audio/12.mp3",
   photos: {
     // 예: cover: "./images/cover.jpg"
     cover: "",
@@ -110,9 +112,86 @@ const observer = new IntersectionObserver(
 document.querySelectorAll(".section-fade").forEach((section) => observer.observe(section));
 
 const musicToggle = document.getElementById("musicToggle");
-musicToggle?.addEventListener("click", () => {
-  musicToggle.classList.toggle("is-paused");
+const backgroundMusic = document.getElementById("backgroundMusic");
+const musicToast = document.getElementById("musicToast");
+let attemptedAutoplay = false;
+
+if (backgroundMusic) {
+  backgroundMusic.src = invitationConfig.music;
+  backgroundMusic.volume = 0.5;
+}
+
+const setMusicState = (isPlaying) => {
+  musicToggle?.classList.toggle("is-paused", !isPlaying);
+  musicToggle?.setAttribute("aria-pressed", String(isPlaying));
+  musicToggle?.setAttribute("aria-label", isPlaying ? "배경음악 일시정지" : "배경음악 재생");
+};
+
+const playBackgroundMusic = async () => {
+  if (!backgroundMusic) return false;
+
+  try {
+    backgroundMusic.muted = false;
+    await backgroundMusic.play();
+    setMusicState(true);
+    return true;
+  } catch {
+    setMusicState(false);
+    return false;
+  }
+};
+
+const tryAutoplay = async () => {
+  if (attemptedAutoplay) return;
+  attemptedAutoplay = true;
+  const didPlay = await playBackgroundMusic();
+
+  if (!didPlay) {
+    if (musicToast) {
+      musicToast.textContent = "화면을 터치하면 배경음악이 재생됩니다.";
+    }
+
+    const resumeOnGesture = async () => {
+      const played = await playBackgroundMusic();
+      if (!played) return;
+      document.removeEventListener("pointerdown", resumeOnGesture);
+      document.removeEventListener("keydown", resumeOnGesture);
+      document.removeEventListener("touchstart", resumeOnGesture);
+    };
+
+    document.addEventListener("pointerdown", resumeOnGesture);
+    document.addEventListener("keydown", resumeOnGesture);
+    document.addEventListener("touchstart", resumeOnGesture);
+    return;
+  }
+
+  if (musicToast) {
+    musicToast.textContent = "배경음악이 재생되고 있습니다.";
+  }
+};
+
+musicToggle?.addEventListener("click", async () => {
+  if (!backgroundMusic) return;
+
+  if (backgroundMusic.paused) {
+    const didPlay = await playBackgroundMusic();
+    if (!didPlay) {
+      setMusicState(false);
+      if (musicToast) {
+        musicToast.textContent = "브라우저 설정으로 음악을 재생할 수 없습니다.";
+      }
+    }
+    return;
+  }
+
+  backgroundMusic.pause();
+  setMusicState(false);
 });
+
+backgroundMusic?.addEventListener("pause", () => setMusicState(false));
+backgroundMusic?.addEventListener("play", () => setMusicState(true));
+setMusicState(false);
+tryAutoplay();
 
 document.querySelectorAll('.bottom-actions a[href^="."]').forEach((link) => {
   link.addEventListener("click", (event) => {

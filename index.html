@@ -11,13 +11,15 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Serif+KR:wght@300;400;500;600&display=swap"
       rel="stylesheet"
     />
+    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=3j0ictb9jw"></script>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <div class="toast" id="musicToast">배경음악이 준비 되었습니다.</div>
-    <button class="music-button" type="button" aria-label="배경음악 재생 또는 일시정지" id="musicToggle">
+    <div class="toast" id="musicToast">배경음악이 준비되었습니다.</div>
+    <button class="music-button is-paused" type="button" aria-label="배경음악 재생" aria-pressed="false" id="musicToggle">
       <span></span><span></span><span></span>
     </button>
+    <audio id="backgroundMusic" src="https://hellomybrand.com/wed/audio/12.mp3" preload="auto" autoplay loop></audio>
 
     <main class="invitation">
       <section class="cover section-fade">
@@ -57,8 +59,8 @@
         </div>
         <div class="section-heading">
           <p>WEDDING DAY</p>
-          <h2 id="weddingDayTitle">2026년 11월 14일 토요일 | 오후 12시</h2>
-          <span>Saturday, November 14, 2026 | PM 12:00</span>
+          <h2 id="weddingDayTitle">2026년 11월 14일 토요일 | 오후 4시 50분</h2>
+          <span>Saturday, November 14, 2026 | PM 4:50</span>
         </div>
         <div class="calendar" aria-label="2026년 11월 달력">
           <div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div>
@@ -122,24 +124,41 @@
       <section class="timeline section-fade">
         <div class="section-heading">
           <p>OUR TIMELINE</p>
-          <h2>저희 연애의 타임라인입니다</h2>
-          <span>서로에게 참 소중하고 감사한 시간</span>
+          <h2>우리의 이야기를 소개합니다</h2>
+          <span>서로에게 참 소중하고 감사한 존재</span>
         </div>
-        <ol>
+        <ol class="storyline">
           <li>
             <div class="timeline-photo photo-slot"><span>Photo</span></div>
-            <p>첫 만남</p>
-            <h3>서로의 하루에 자연스럽게 스며든 날</h3>
+            <div class="timeline-copy">
+              <p class="timeline-badge">첫 만남</p>
+              <h3>운명 같은 첫 인연</h3>
+              <span>서로의 하루에 조용히 스며든 시작</span>
+            </div>
           </li>
           <li>
             <div class="timeline-photo photo-slot"><span>Photo</span></div>
-            <p>함께한 여행</p>
-            <h3>오래 기억하고 싶은 풍경을 나눈 날</h3>
+            <div class="timeline-copy">
+              <p class="timeline-badge">연애 기간</p>
+              <h3>행복했던 우리의 계절</h3>
+              <span>대화와 웃음이 머물던 작은 일상들</span>
+            </div>
           </li>
           <li>
             <div class="timeline-photo photo-slot"><span>Photo</span></div>
-            <p>프로포즈</p>
-            <h3>같은 방향을 바라보기로 약속한 날</h3>
+            <div class="timeline-copy">
+              <p class="timeline-badge">우리의 약속</p>
+              <h3>같은 방향을 바라보기로 한 날</h3>
+              <span>오래 준비한 마음으로 서로에게 건넨 대답</span>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-photo photo-slot"><span>Photo</span></div>
+            <div class="timeline-copy">
+              <p class="timeline-badge">2026년 11월 14일</p>
+              <h3>결혼식</h3>
+              <span>이제는 둘이 아닌 하나로 걷기 시작하는 날</span>
+            </div>
           </li>
         </ol>
       </section>
@@ -165,17 +184,30 @@
           <h2>오시는 길</h2>
           <span>엘마리노 앳 인천</span>
         </div>
-        <div class="map-box">
-          <span>Map Area</span>
+        <div class="map-box" id="map" aria-label="엘마리노 앳 인천 지도">
+          <a class="map-fallback" href="https://map.naver.com/p/search/%EC%97%98%EB%A7%88%EB%A6%AC%EB%85%B8%20%EC%95%B3%20%EC%9D%B8%EC%B2%9C/place/2072432778?c=15.00,0,0,0,dh&isCorrectAnswer=true&placePath=%2Fhome%3Ffrom%3Dmap%26fromPanelNum%3D1%26additionalHeight%3D76%26timestamp%3D202606272233%26locale%3Dko%26svcName%3Dmap_pcv5%26searchText%3D%EC%97%98%EB%A7%88%EB%A6%AC%EB%85%B8%20%EC%95%B3%20%EC%9D%B8%EC%B2%9C" target="_blank" rel="noopener">
+            <span class="map-pin" aria-hidden="true"></span>
+            <strong>엘마리노 앳 인천</strong>
+            <small>인천 중구 서해대로 227</small>
+          </a>
         </div>
         <div class="venue">
           <h3>엘마리노 앳 인천</h3>
           <p>인천 중구 서해대로 227</p>
         </div>
+        <div class="visit-info" aria-label="주차 및 대중교통 안내">
+          <div>
+            <b>주차</b>
+            <span>내부 300대 · 인근 700대<br />무료 2시간 지원</span>
+          </div>
+          <div>
+            <b>도보 · 셔틀</b>
+            <span>1호선 동인천역 5번 출구<br />셔틀버스 15분 간격 운행</span>
+          </div>
+        </div>
         <div class="route-buttons">
-          <a href="https://buly.kr/CrOS1f" target="_blank" rel="noopener" aria-label="네이버 지도 열기">네이버지도</a>
+          <a href="https://map.naver.com/p/search/%EC%97%98%EB%A7%88%EB%A6%AC%EB%85%B8%20%EC%95%B3%20%EC%9D%B8%EC%B2%9C/place/2072432778?c=15.00,0,0,0,dh&isCorrectAnswer=true&placePath=%2Fhome%3Ffrom%3Dmap%26fromPanelNum%3D1%26additionalHeight%3D76%26timestamp%3D202606272233%26locale%3Dko%26svcName%3Dmap_pcv5%26searchText%3D%EC%97%98%EB%A7%88%EB%A6%AC%EB%85%B8%20%EC%95%B3%20%EC%9D%B8%EC%B2%9C" target="_blank" rel="noopener" aria-label="네이버 지도 열기">네이버지도</a>
           <a href="https://map.kakao.com/link/search/인천%20중구%20서해대로%20227" target="_blank" rel="noopener" aria-label="카카오 지도 열기">카카오맵</a>
-          <a href="https://tmap.life/cd76a6db" target="_blank" rel="noopener" aria-label="T맵 열기">T맵</a>
         </div>
       </section>
 
@@ -209,5 +241,43 @@
     </nav>
 
     <script src="./script.js"></script>
+    <script>
+      document.documentElement.setAttribute("data-map-script-ready", "true");
+
+      window.initWeddingMap = function () {
+        var mapElement = document.getElementById("map");
+        if (!mapElement || mapElement.classList.contains("is-loaded")) return;
+        if (!window.naver || !window.naver.maps) return;
+
+        var map = new naver.maps.Map("map", {
+          center: new naver.maps.LatLng(37.449400, 126.62310),
+          zoom: 16,
+          zoomControl: true, //줌 컨트롤의 표시 여부
+          zoomControlOptions: { //줌 컨트롤의 옵션
+            position: naver.maps.Position.TOP_RIGHT
+          },
+        });
+
+        var marker = new naver.maps.Marker({
+          position: new naver.maps.LatLng(37.449350, 126.62315),
+          map: map,
+        });
+
+        mapElement.classList.add("is-loaded");
+      };
+
+      (function waitForNaverMap() {
+        var tries = 0;
+        var timer = window.setInterval(function () {
+          tries += 1;
+          window.initWeddingMap();
+
+          var mapElement = document.getElementById("map");
+          if ((mapElement && mapElement.classList.contains("is-loaded")) || tries > 40) {
+            window.clearInterval(timer);
+          }
+        }, 250);
+      })();
+    </script>
   </body>
 </html>
