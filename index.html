@@ -12,7 +12,7 @@
       rel="stylesheet"
     />
     <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=3j0ictb9jw"></script>
-    <link rel="stylesheet" href="./styles.css?v=cover-photo-1" />
+    <link rel="stylesheet" href="./styles.css?v=drag-gallery-timeline-1" />
   </head>
   <body>
     <div class="toast" id="musicToast">배경음악이 준비되었습니다.</div>
@@ -129,7 +129,9 @@
         </div>
         <ol class="storyline">
           <li>
-            <div class="timeline-photo photo-slot"><span>Photo</span></div>
+            <div class="timeline-photo photo-slot has-photo">
+              <img src="./assets/gallery/JML_7318.JPG" alt="햄버거를 들고 웃는 두 사람" loading="lazy" />
+            </div>
             <div class="timeline-copy">
               <p class="timeline-badge">첫 만남</p>
               <h3>운명 같은 첫 인연</h3>
@@ -137,7 +139,9 @@
             </div>
           </li>
           <li>
-            <div class="timeline-photo photo-slot"><span>Photo</span></div>
+            <div class="timeline-photo photo-slot has-photo">
+              <img src="./assets/gallery/JML_7449.JPG" alt="소파에 앉아 서로를 바라보는 두 사람" loading="lazy" />
+            </div>
             <div class="timeline-copy">
               <p class="timeline-badge">연애 기간</p>
               <h3>행복했던 우리의 계절</h3>
@@ -145,7 +149,9 @@
             </div>
           </li>
           <li>
-            <div class="timeline-photo photo-slot"><span>Photo</span></div>
+            <div class="timeline-photo photo-slot has-photo">
+              <img src="./assets/gallery/JML_6046.JPG" alt="부케를 든 두 사람" loading="lazy" />
+            </div>
             <div class="timeline-copy">
               <p class="timeline-badge">우리의 약속</p>
               <h3>같은 방향을 바라보기로 한 날</h3>
@@ -153,7 +159,9 @@
             </div>
           </li>
           <li>
-            <div class="timeline-photo photo-slot"><span>Photo</span></div>
+            <div class="timeline-photo photo-slot has-photo">
+              <img src="./assets/gallery/JML_5458.JPG" alt="꽃이 있는 공간에 앉은 두 사람" loading="lazy" />
+            </div>
             <div class="timeline-copy">
               <p class="timeline-badge">2026년 11월 14일</p>
               <h3>결혼식</h3>
@@ -215,6 +223,7 @@
             <span>1호선 동인천역 5번 출구<br />셔틀버스 15분 간격 운행</span>
           </div>
         </div>
+        <button class="address-copy" type="button" id="copyAddressButton">주소 복사하기</button>
         <div class="route-buttons">
           <a href="https://map.naver.com/p/search/%EC%97%98%EB%A7%88%EB%A6%AC%EB%85%B8%20%EC%95%B3%20%EC%9D%B8%EC%B2%9C/place/2072432778?c=15.00,0,0,0,dh&isCorrectAnswer=true&placePath=%2Fhome%3Ffrom%3Dmap%26fromPanelNum%3D1%26additionalHeight%3D76%26timestamp%3D202606272233%26locale%3Dko%26svcName%3Dmap_pcv5%26searchText%3D%EC%97%98%EB%A7%88%EB%A6%AC%EB%85%B8%20%EC%95%B3%20%EC%9D%B8%EC%B2%9C" target="_blank" rel="noopener" aria-label="네이버 지도 열기">네이버지도</a>
           <a href="https://map.kakao.com/link/search/인천%20중구%20서해대로%20227" target="_blank" rel="noopener" aria-label="카카오 지도 열기">카카오맵</a>
@@ -229,11 +238,17 @@
         </div>
         <details>
           <summary>신랑측 계좌번호</summary>
-          <p>은행명 000-0000-0000 예금주</p>
+          <div class="account-row">
+            <p>은행명 000-0000-0000 예금주</p>
+            <button type="button" data-copy-account="은행명 000-0000-0000 예금주">복사</button>
+          </div>
         </details>
         <details>
           <summary>신부측 계좌번호</summary>
-          <p>은행명 000-0000-0000 예금주</p>
+          <div class="account-row">
+            <p>은행명 000-0000-0000 예금주</p>
+            <button type="button" data-copy-account="은행명 000-0000-0000 예금주">복사</button>
+          </div>
         </details>
       </section>
 
@@ -250,7 +265,13 @@
       <a href=".location">오시는 길</a>
     </nav>
 
-    <script src="./script.js?v=cover-photo-1"></script>
+    <div class="lightbox" id="galleryLightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="사진 닫기">×</button>
+      <img src="" alt="" />
+      <div class="lightbox-hint">좌우로 밀어 사진 넘기기</div>
+    </div>
+
+    <script src="./script.js?v=drag-gallery-timeline-1"></script>
     <script>
       document.documentElement.setAttribute("data-map-script-ready", "true");
 

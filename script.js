@@ -18,11 +18,10 @@ const invitationConfig = {
   },
   music: "https://hellomybrand.com/wed/audio/12.mp3",
   photos: {
-    // 예: cover: "./images/cover.jpg"
     cover: "./assets/gallery/JML_5458.JPG",
-    intro: "",
-    groom: "",
-    bride: "",
+    intro: "./assets/gallery/JML_6046.JPG",
+    groom: "./assets/gallery/JML_6046.JPG",
+    bride: "./assets/gallery/JML_6046.JPG",
   },
 };
 
@@ -193,6 +192,131 @@ backgroundMusic?.addEventListener("play", () => setMusicState(true));
 setMusicState(false);
 tryAutoplay();
 
+const copyText = async (text, successMessage) => {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
+    const input = document.createElement("textarea");
+    input.value = text;
+    input.setAttribute("readonly", "");
+    input.style.position = "fixed";
+    input.style.opacity = "0";
+    document.body.appendChild(input);
+    input.select();
+    document.execCommand("copy");
+    input.remove();
+  }
+
+  if (musicToast) {
+    musicToast.textContent = successMessage;
+    musicToast.style.animation = "none";
+    musicToast.offsetHeight;
+    musicToast.style.animation = "";
+  }
+};
+
+document.getElementById("copyAddressButton")?.addEventListener("click", () => {
+  copyText(invitationConfig.venue.address, "식장 주소가 복사되었습니다.");
+});
+
+document.querySelectorAll("[data-copy-account]").forEach((button) => {
+  button.addEventListener("click", () => {
+    copyText(button.dataset.copyAccount, "계좌번호가 복사되었습니다.");
+  });
+});
+
+const lightbox = document.getElementById("galleryLightbox");
+const lightboxImage = lightbox?.querySelector("img");
+const galleryImages = Array.from(document.querySelectorAll(".gallery-grid img"));
+let activeGalleryIndex = 0;
+let dragStartX = 0;
+let dragCurrentX = 0;
+let isDraggingLightbox = false;
+
+const openLightbox = (index) => {
+  if (!lightbox || !lightboxImage || !galleryImages.length) return;
+  activeGalleryIndex = index;
+  const image = galleryImages[activeGalleryIndex];
+  lightboxImage.src = image.src;
+  lightboxImage.alt = image.alt;
+  lightbox.classList.add("is-open");
+  lightbox.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+};
+
+const closeLightbox = () => {
+  if (!lightbox || !lightboxImage) return;
+  lightbox.classList.remove("is-open");
+  lightbox.setAttribute("aria-hidden", "true");
+  lightboxImage.src = "";
+  document.body.style.overflow = "";
+};
+
+const moveLightbox = (direction) => {
+  if (!galleryImages.length) return;
+  activeGalleryIndex = (activeGalleryIndex + direction + galleryImages.length) % galleryImages.length;
+  if (!lightbox || !lightboxImage) return;
+
+  lightbox.classList.add("is-switching");
+  window.setTimeout(() => {
+    const image = galleryImages[activeGalleryIndex];
+    lightboxImage.src = image.src;
+    lightboxImage.alt = image.alt;
+    lightboxImage.style.transform = "";
+    lightbox.classList.remove("is-switching");
+  }, 120);
+};
+
+galleryImages.forEach((image, index) => {
+  image.closest("button")?.addEventListener("click", () => openLightbox(index));
+});
+
+lightbox?.querySelector(".lightbox-close")?.addEventListener("click", closeLightbox);
+lightbox?.addEventListener("click", (event) => {
+  if (event.target === lightbox) closeLightbox();
+});
+
+lightboxImage?.addEventListener("pointerdown", (event) => {
+  if (!lightbox || !lightboxImage) return;
+  isDraggingLightbox = true;
+  dragStartX = event.clientX;
+  dragCurrentX = event.clientX;
+  lightbox.classList.add("is-dragging");
+  lightboxImage.setPointerCapture?.(event.pointerId);
+});
+
+lightboxImage?.addEventListener("pointermove", (event) => {
+  if (!isDraggingLightbox || !lightboxImage) return;
+  dragCurrentX = event.clientX;
+  const deltaX = dragCurrentX - dragStartX;
+  lightboxImage.style.transform = `translateX(${deltaX * 0.35}px) rotate(${deltaX * 0.015}deg)`;
+});
+
+const finishLightboxDrag = () => {
+  if (!isDraggingLightbox || !lightbox || !lightboxImage) return;
+  const deltaX = dragCurrentX - dragStartX;
+  isDraggingLightbox = false;
+  lightbox.classList.remove("is-dragging");
+
+  if (Math.abs(deltaX) > 54) {
+    moveLightbox(deltaX < 0 ? 1 : -1);
+    return;
+  }
+
+  lightboxImage.style.transform = "";
+};
+
+lightboxImage?.addEventListener("pointerup", finishLightboxDrag);
+lightboxImage?.addEventListener("pointercancel", finishLightboxDrag);
+lightboxImage?.addEventListener("lostpointercapture", finishLightboxDrag);
+
+document.addEventListener("keydown", (event) => {
+  if (!lightbox?.classList.contains("is-open")) return;
+  if (event.key === "Escape") closeLightbox();
+  if (event.key === "ArrowLeft") moveLightbox(-1);
+  if (event.key === "ArrowRight") moveLightbox(1);
+});
+
 document.querySelectorAll('.bottom-actions a[href^="."]').forEach((link) => {
   link.addEventListener("click", (event) => {
     event.preventDefault();
@@ -212,6 +336,5 @@ document.getElementById("shareButton")?.addEventListener("click", async () => {
     return;
   }
 
-  await navigator.clipboard?.writeText(window.location.href);
-  alert("청첩장 주소가 복사되었습니다.");
+  copyText(window.location.href, "청첩장 주소가 복사되었습니다.");
 });
