@@ -1,1 +1,1 @@
-https://bamjong.github.io/baekryeon
+https://bamjong.github.io/invitation
