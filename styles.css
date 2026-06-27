@@ -7,6 +7,7 @@
   --accent-soft: #efe1d9;
   --sage: #78846e;
   --shadow: 0 18px 60px rgba(62, 54, 46, 0.12);
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 * {
@@ -74,6 +75,10 @@ footer {
   background: linear-gradient(180deg, rgba(20, 16, 14, 0.18), rgba(20, 16, 14, 0.82));
 }
 
+.cover.is-visible .cover-photo {
+  animation: coverReveal 1.8s var(--motion-ease) both, coverDrift 13s ease-in-out 1.8s infinite alternate;
+}
+
 .cover-copy {
   position: relative;
   z-index: 1;
@@ -81,6 +86,27 @@ footer {
   text-align: center;
   color: white;
   text-shadow: 0 2px 18px rgba(0, 0, 0, 0.42);
+}
+
+.cover-copy > * {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+}
+
+.cover.is-visible .cover-copy > * {
+  animation: riseSoft 1.2s var(--motion-ease) both;
+}
+
+.cover.is-visible .cover-copy .eyebrow {
+  animation-delay: 0.35s;
+}
+
+.cover.is-visible .cover-copy h1 {
+  animation-delay: 0.55s;
+}
+
+.cover.is-visible .cover-copy .date-line {
+  animation-delay: 0.8s;
 }
 
 .eyebrow,
@@ -100,7 +126,7 @@ footer {
   gap: 8px 14px;
   align-items: center;
   font-family: "Cormorant Garamond", serif;
-  font-size: clamp(2.35rem, 11vw, 3.8rem);
+  font-size: clamp(2.05rem, 8.8vw, 2.85rem);
   font-weight: 500;
   line-height: 0.95;
 }
@@ -126,6 +152,21 @@ footer {
     linear-gradient(135deg, rgba(157, 118, 103, 0.16), rgba(120, 132, 110, 0.18)),
     repeating-linear-gradient(-45deg, transparent 0 12px, rgba(255, 255, 255, 0.32) 12px 13px);
   color: rgba(64, 59, 53, 0.48);
+  transform-origin: center;
+}
+
+.photo-slot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.34) 46%, transparent 62%);
+  opacity: 0;
+  transform: translateX(-120%);
+}
+
+.is-visible .photo-slot::before {
+  animation: photoSheen 1.6s ease 0.35s both;
 }
 
 .photo-slot.has-photo {
@@ -162,6 +203,7 @@ footer {
   gap: 3px;
   padding: 9px 0;
   cursor: pointer;
+  animation: floatIn 0.9s var(--motion-ease) 0.7s both;
 }
 
 .music-button span {
@@ -549,6 +591,7 @@ footer button {
   background: rgba(255, 255, 255, 0.88);
   box-shadow: 0 10px 38px rgba(52, 45, 39, 0.16);
   backdrop-filter: blur(12px);
+  animation: bottomDock 0.9s var(--motion-ease) 0.55s both;
 }
 
 .bottom-actions a {
@@ -565,22 +608,196 @@ footer button {
 
 .section-fade {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: translate3d(0, 46px, 0);
+  filter: blur(8px);
+  transition:
+    opacity 1.05s var(--motion-ease),
+    transform 1.05s var(--motion-ease),
+    filter 1.05s var(--motion-ease);
+  transition-delay: 0.04s;
+  will-change: opacity, transform, filter;
 }
 
 .section-fade.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
+  filter: blur(0);
+}
+
+.section-fade:not(.cover) > * {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+}
+
+.section-fade.is-visible:not(.cover) > * {
+  animation: riseSoft 0.95s var(--motion-ease) both;
+  animation-delay: calc(0.08s + var(--stagger, 0) * 0.11s);
+}
+
+.calendar > *,
+.countdown > *,
+.profile-grid article,
+.timeline li,
+.gallery-grid > *,
+.route-buttons a,
+.contact-buttons a,
+.account details {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0) scale(0.98);
+}
+
+.is-visible .calendar > *,
+.is-visible .countdown > *,
+.is-visible .profile-grid article,
+.is-visible .timeline li,
+.is-visible .gallery-grid > *,
+.is-visible .route-buttons a,
+.is-visible .contact-buttons a,
+.is-visible .account details {
+  animation: riseSoft 0.82s var(--motion-ease) both;
+  animation-delay: calc(0.16s + var(--stagger, 0) * 0.045s);
+}
+
+.is-visible .countdown > *,
+.is-visible .route-buttons a,
+.is-visible .contact-buttons a {
+  animation-name: popSoft;
+}
+
+.timeline li::before {
+  transform: scale(0);
+  transition: transform 0.55s var(--motion-ease);
+  transition-delay: calc(0.26s + var(--stagger, 0) * 0.12s);
+}
+
+.timeline.is-visible li::before {
+  transform: scale(1);
+}
+
+.timeline li {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 1s var(--motion-ease);
+  transition-delay: calc(0.12s + var(--stagger, 0) * 0.12s);
+}
+
+.timeline.is-visible li {
+  clip-path: inset(0 0 0 0);
 }
 
 @keyframes equalizer {
   50% { transform: scaleY(0.42); }
 }
 
+@keyframes riseSoft {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 26px, 0) scale(0.985);
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes popSoft {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0) scale(0.92);
+    filter: blur(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes coverReveal {
+  0% {
+    opacity: 0;
+    transform: scale(1.08);
+    filter: blur(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes coverDrift {
+  0% { transform: scale(1) translate3d(0, 0, 0); }
+  100% { transform: scale(1.045) translate3d(0, -10px, 0); }
+}
+
+@keyframes photoSheen {
+  0% {
+    opacity: 0;
+    transform: translateX(-120%);
+  }
+  24% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(120%);
+  }
+}
+
+@keyframes floatIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -14px, 0) scale(0.82);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes bottomDock {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 20px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+
 @keyframes toast {
   0%, 100% { opacity: 0; transform: translate(-50%, -16px); }
   12%, 78% { opacity: 1; transform: translate(-50%, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .section-fade,
+  .section-fade:not(.cover) > *,
+  .calendar > *,
+  .countdown > *,
+  .profile-grid article,
+  .timeline li,
+  .gallery-grid > *,
+  .route-buttons a,
+  .contact-buttons a,
+  .account details {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    clip-path: none;
+  }
 }
 
 @media (min-width: 760px) {

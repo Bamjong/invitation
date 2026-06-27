@@ -49,6 +49,24 @@ Object.entries(invitationConfig.photos).forEach(([key, src]) => {
   });
 });
 
+const applyStagger = (selector) => {
+  document.querySelectorAll(selector).forEach((element, index) => {
+    element.style.setProperty("--stagger", index);
+  });
+};
+
+[
+  ".section-fade:not(.cover) > *",
+  ".calendar > *",
+  ".countdown > *",
+  ".profile-grid article",
+  ".timeline li",
+  ".gallery-grid > *",
+  ".route-buttons a",
+  ".contact-buttons a",
+  ".account details",
+].forEach(applyStagger);
+
 const countdownElement = document.getElementById("countdown");
 const remainingDaysElement = document.getElementById("remainingDays");
 const targetDate = new Date(invitationConfig.weddingDate);
@@ -77,10 +95,16 @@ setInterval(updateCountdown, 1000);
 const observer = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
-      if (entry.isIntersecting) entry.target.classList.add("is-visible");
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      }
     });
   },
-  { threshold: 0.12 }
+  {
+    rootMargin: "0px 0px -12% 0px",
+    threshold: 0.08,
+  }
 );
 
 document.querySelectorAll(".section-fade").forEach((section) => observer.observe(section));
