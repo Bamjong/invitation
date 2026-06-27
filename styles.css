@@ -178,6 +178,15 @@ footer {
   display: none;
 }
 
+.photo-slot img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .photo-slot span {
   position: relative;
   z-index: 1;
@@ -298,14 +307,15 @@ footer {
 }
 
 .month-mark {
-  position: absolute;
-  top: 60px;
-  left: 24px;
-  display: grid;
-  gap: 1px;
+  position: static;
+  display: flex;
+  justify-content: center;
+  gap: 3px;
+  margin: 0 0 22px;
   color: #b6a99d;
   font-family: "Cormorant Garamond", serif;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.2em;
   line-height: 1;
 }
 
@@ -610,6 +620,7 @@ footer button {
   border: 0;
   border-radius: 4px;
   cursor: pointer;
+  background: #eee8df;
 }
 
 .gallery-grid .tall {
@@ -846,13 +857,13 @@ footer button {
 
 .section-fade {
   opacity: 0;
-  transform: translate3d(0, 46px, 0);
-  filter: blur(8px);
+  transform: translate3d(0, 24px, 0);
+  filter: blur(4px);
   transition:
-    opacity 1.05s var(--motion-ease),
-    transform 1.05s var(--motion-ease),
-    filter 1.05s var(--motion-ease);
-  transition-delay: 0.04s;
+    opacity 0.58s var(--motion-ease),
+    transform 0.58s var(--motion-ease),
+    filter 0.58s var(--motion-ease);
+  transition-delay: 0s;
   will-change: opacity, transform, filter;
 }
 
@@ -864,12 +875,12 @@ footer button {
 
 .section-fade:not(.cover) > * {
   opacity: 0;
-  transform: translate3d(0, 22px, 0);
+  transform: translate3d(0, 14px, 0);
 }
 
 .section-fade.is-visible:not(.cover) > * {
-  animation: riseSoft 0.95s var(--motion-ease) both;
-  animation-delay: calc(0.08s + var(--stagger, 0) * 0.11s);
+  animation: riseSoft 0.52s var(--motion-ease) both;
+  animation-delay: calc(var(--stagger, 0) * 0.035s);
 }
 
 .calendar > *,
@@ -881,7 +892,7 @@ footer button {
 .contact-buttons a,
 .account details {
   opacity: 0;
-  transform: translate3d(0, 22px, 0) scale(0.98);
+  transform: translate3d(0, 14px, 0) scale(0.99);
 }
 
 .is-visible .calendar > *,
@@ -893,8 +904,8 @@ footer button {
 .is-visible .route-buttons a,
 .is-visible .contact-buttons a,
 .is-visible .account details {
-  animation: riseSoft 0.82s var(--motion-ease) both;
-  animation-delay: calc(0.16s + var(--stagger, 0) * 0.045s);
+  animation: riseSoft 0.48s var(--motion-ease) both;
+  animation-delay: calc(var(--stagger, 0) * 0.02s);
 }
 
 .is-visible .countdown > *,
@@ -905,8 +916,8 @@ footer button {
 
 .timeline li::before {
   transform: translate(-50%, -50%) scale(0);
-  transition: transform 0.55s var(--motion-ease);
-  transition-delay: calc(0.26s + var(--stagger, 0) * 0.12s);
+  transition: transform 0.35s var(--motion-ease);
+  transition-delay: calc(var(--stagger, 0) * 0.035s);
 }
 
 .timeline.is-visible li::before {
@@ -915,8 +926,8 @@ footer button {
 
 .timeline li {
   clip-path: inset(0 0 100% 0);
-  transition: clip-path 1s var(--motion-ease);
-  transition-delay: calc(0.12s + var(--stagger, 0) * 0.12s);
+  transition: clip-path 0.45s var(--motion-ease);
+  transition-delay: calc(var(--stagger, 0) * 0.035s);
 }
 
 .timeline.is-visible li {

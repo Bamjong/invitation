@@ -12,7 +12,7 @@
       rel="stylesheet"
     />
     <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=3j0ictb9jw"></script>
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles.css?v=mobile-wedding-fix-1" />
   </head>
   <body>
     <div class="toast" id="musicToast">배경음악이 준비되었습니다.</div>
@@ -170,11 +170,21 @@
           <span>사진은 나중에 자유롭게 교체할 수 있습니다</span>
         </div>
         <div class="gallery-grid">
-          <button class="photo-slot" type="button"><span>Photo</span></button>
-          <button class="photo-slot tall" type="button"><span>Photo</span></button>
-          <button class="photo-slot" type="button"><span>Photo</span></button>
-          <button class="photo-slot wide" type="button"><span>Photo</span></button>
-          <button class="photo-slot" type="button"><span>Photo</span></button>
+          <button class="photo-slot has-photo" type="button">
+            <img src="./assets/gallery/JML_6784.JPG" alt="웃고 있는 신랑 신부" loading="lazy" />
+          </button>
+          <button class="photo-slot tall has-photo" type="button">
+            <img src="./assets/gallery/JML_5458.JPG" alt="꽃이 있는 공간에 앉은 신랑 신부" loading="lazy" />
+          </button>
+          <button class="photo-slot has-photo" type="button">
+            <img src="./assets/gallery/JML_6046.JPG" alt="부케를 들고 있는 신랑 신부" loading="lazy" />
+          </button>
+          <button class="photo-slot wide has-photo" type="button">
+            <img src="./assets/gallery/JML_7449.JPG" alt="소파에 앉아 서로를 바라보는 신랑 신부" loading="lazy" />
+          </button>
+          <button class="photo-slot has-photo" type="button">
+            <img src="./assets/gallery/JML_7318.JPG" alt="침대 위에서 햄버거를 들고 웃는 신랑 신부" loading="lazy" />
+          </button>
         </div>
       </section>
 
@@ -240,7 +250,7 @@
       <a href=".location">오시는 길</a>
     </nav>
 
-    <script src="./script.js"></script>
+    <script src="./script.js?v=mobile-wedding-fix-1"></script>
     <script>
       document.documentElement.setAttribute("data-map-script-ready", "true");
 
