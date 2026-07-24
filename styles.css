@@ -260,6 +260,7 @@ footer {
     repeating-linear-gradient(-45deg, transparent 0 12px, rgba(255, 255, 255, 0.32) 12px 13px);
   color: rgba(64, 59, 53, 0.48);
   transform-origin: center;
+  contain: paint;
 }
 
 .photo-slot::before {
@@ -274,6 +275,11 @@ footer {
 
 .is-visible .photo-slot::before {
   animation: photoSheen 1.6s ease 0.35s both;
+}
+
+.timeline .photo-slot::before,
+.gallery .photo-slot::before {
+  display: none;
 }
 
 .photo-slot.has-photo {
@@ -292,6 +298,7 @@ footer {
   height: 100%;
   object-fit: cover;
   display: block;
+  backface-visibility: hidden;
 }
 
 .photo-slot span {
@@ -382,7 +389,11 @@ footer {
 }
 
 .intro.is-visible::before {
-  animation: riseSoft 0.72s var(--motion-ease) both;
+  animation: cascadeDown 0.72s var(--motion-ease) both;
+}
+
+.intro.section-fade.is-visible:not(.cover) > * {
+  animation-delay: calc(0.08s + (var(--stagger, 0) * 0.04s));
 }
 
 .intro p {
@@ -627,7 +638,8 @@ footer button {
   left: 50%;
   width: 1px;
   background: #ddd8d2;
-  transform: translateX(-50%);
+  transform: translateX(-50%) scaleY(0);
+  transform-origin: top center;
 }
 
 .timeline li {
@@ -638,6 +650,12 @@ footer button {
   align-items: center;
   padding: 0;
   border-left: 0;
+}
+
+.timeline-photo,
+.timeline-copy {
+  opacity: 0;
+  transform: translate3d(0, -18px, 0);
 }
 
 .timeline li::before {
@@ -756,6 +774,8 @@ footer button {
   border-radius: 4px;
   cursor: pointer;
   background: #eee8df;
+  contain: layout paint;
+  transform: translateZ(0);
 }
 
 .gallery-grid button:focus-visible {
@@ -1157,16 +1177,13 @@ footer button {
 }
 
 .timeline li {
-  opacity: 0;
-  transform: translate3d(0, -18px, 0);
-  will-change: opacity, transform;
+  opacity: 1;
+  transform: none;
 }
 
 .is-visible .calendar > *,
 .is-visible .countdown > *,
 .is-visible .profile-grid article,
-.is-visible .timeline li,
-.timeline.is-visible li,
 .is-visible .gallery-grid > *,
 .is-visible .route-buttons a,
 .is-visible .contact-buttons a,
@@ -1181,9 +1198,19 @@ footer button {
   animation-delay: calc(var(--stagger, 0) * 0.026s);
 }
 
-.timeline.is-visible li {
+.timeline.is-visible .storyline::before {
+  animation: timelineLineDraw 0.78s var(--motion-ease) both;
+}
+
+.timeline.is-visible .timeline-photo,
+.timeline.is-visible .timeline-copy {
   animation: timelineGlideDown 0.62s var(--motion-ease) both;
-  animation-delay: calc(var(--stagger, 0) * 0.035s);
+  animation-delay: calc(0.52s + (var(--stagger, 0) * 0.12s));
+  will-change: opacity, transform;
+}
+
+.timeline.is-visible .timeline-copy {
+  animation-delay: calc(0.62s + (var(--stagger, 0) * 0.12s));
 }
 
 .is-visible .countdown > *,
@@ -1196,7 +1223,7 @@ footer button {
 .timeline li::before {
   transform: translate(-50%, -50%) scale(0);
   transition: transform 0.42s var(--motion-ease);
-  transition-delay: calc(var(--stagger, 0) * 0.035s);
+  transition-delay: calc(0.52s + (var(--stagger, 0) * 0.12s));
 }
 
 .timeline.is-visible li::before {
@@ -1248,6 +1275,15 @@ footer button {
   100% {
     opacity: 1;
     transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes timelineLineDraw {
+  0% {
+    transform: translateX(-50%) scaleY(0);
+  }
+  100% {
+    transform: translateX(-50%) scaleY(1);
   }
 }
 
