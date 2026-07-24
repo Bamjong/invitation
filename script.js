@@ -25,6 +25,19 @@ const invitationConfig = {
   },
 };
 
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
+
+const resetInitialScroll = () => {
+  if (window.location.hash) return;
+  window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+};
+
+resetInitialScroll();
+window.addEventListener("load", resetInitialScroll);
+window.addEventListener("pageshow", resetInitialScroll);
+
 const setText = (id, text) => {
   const element = document.getElementById(id);
   if (element) element.textContent = text;
@@ -49,6 +62,64 @@ Object.entries(invitationConfig.photos).forEach(([key, src]) => {
     slot.classList.add("has-photo");
   });
 });
+
+const setupCoverPetals = () => {
+  const layer = document.querySelector(".cover-petals");
+  if (!layer) return;
+
+  layer.replaceChildren();
+
+  const petals = 80;
+  const topFallCount = 50;
+
+  for (let index = 0; index < petals; index += 1) {
+    const petal = document.createElement("span");
+    const topFall = index < topFallCount;
+    const row = topFall ? index : index - topFallCount;
+    const width = topFall ? 5 + (row % 4) : 5 + (row % 3);
+    const duration = topFall ? 18 + ((row * 7) % 30) : 24 + ((row * 5) % 34);
+    const delay = -((row * 3.7) % duration);
+    const rotate = topFall ? -58 + ((row * 29) % 116) : -44 + ((row * 37) % 96);
+    const sway = topFall ? -34 + ((row * 17) % 78) : -(58 + ((row * 19) % 92));
+    const spinDirection = row % 2 === 0 ? 1 : -1;
+    const spinMid = spinDirection * (76 + ((row * 11) % 72));
+    const spinEnd = spinDirection * (190 + ((row * 17) % 150));
+
+    petal.classList.toggle("is-side", !topFall);
+    petal.style.setProperty("--w", `${width}px`);
+    petal.style.setProperty("--dur", `${duration}s`);
+    petal.style.setProperty("--delay", `${delay}s`);
+    petal.style.setProperty("--r", `${rotate}deg`);
+    petal.style.setProperty("--sway", `${sway}px`);
+    petal.style.setProperty("--spinMid", `${spinMid}deg`);
+    petal.style.setProperty("--spinEnd", `${spinEnd}deg`);
+
+    if (topFall) {
+      const startX = -10 + ((row * 11) % 21);
+      const endX = sway;
+      petal.style.setProperty("--x", `${4 + ((row * 13) % 92)}%`);
+      petal.style.setProperty("--startX", `${startX}px`);
+      petal.style.setProperty("--midX", `${(startX + endX) / 2}px`);
+      petal.style.setProperty("--endX", `${endX}px`);
+      petal.style.setProperty("--endY", `${132 + ((row * 3) % 18)}vh`);
+      petal.style.setProperty("--top", `${-18 - (row % 5) * 4}vh`);
+    } else {
+      const startX = 24 + ((row * 9) % 34);
+      const endX = -(92 + ((row * 13) % 74));
+      const drop = 72 + ((row * 7) % 46);
+      petal.style.setProperty("--x", `${94 + ((row * 7) % 18)}%`);
+      petal.style.setProperty("--top", `${-8 + ((row * 11) % 48)}vh`);
+      petal.style.setProperty("--startX", `${startX}vw`);
+      petal.style.setProperty("--midX", `${(startX + endX) / 2}vw`);
+      petal.style.setProperty("--endX", `${endX}vw`);
+      petal.style.setProperty("--drop", `${drop}vh`);
+    }
+
+    layer.appendChild(petal);
+  }
+};
+
+setupCoverPetals();
 
 const applyStagger = (selector) => {
   document.querySelectorAll(selector).forEach((element, index) => {
@@ -231,6 +302,7 @@ const galleryImages = Array.from(document.querySelectorAll(".gallery-grid img"))
 let activeGalleryIndex = 0;
 let dragStartX = 0;
 let dragCurrentX = 0;
+let dragStartY = 0;
 let isDraggingLightbox = false;
 
 const openLightbox = (index) => {
@@ -276,20 +348,29 @@ lightbox?.addEventListener("click", (event) => {
   if (event.target === lightbox) closeLightbox();
 });
 
-lightboxImage?.addEventListener("pointerdown", (event) => {
+const beginLightboxDrag = (clientX, clientY = 0) => {
   if (!lightbox || !lightboxImage) return;
   isDraggingLightbox = true;
-  dragStartX = event.clientX;
-  dragCurrentX = event.clientX;
+  dragStartX = clientX;
+  dragCurrentX = clientX;
+  dragStartY = clientY;
   lightbox.classList.add("is-dragging");
+};
+
+const updateLightboxDrag = (clientX) => {
+  if (!isDraggingLightbox || !lightboxImage) return;
+  dragCurrentX = clientX;
+  const deltaX = dragCurrentX - dragStartX;
+  lightboxImage.style.transform = `translateX(${deltaX * 0.35}px) rotate(${deltaX * 0.015}deg)`;
+};
+
+lightboxImage?.addEventListener("pointerdown", (event) => {
+  beginLightboxDrag(event.clientX, event.clientY);
   lightboxImage.setPointerCapture?.(event.pointerId);
 });
 
 lightboxImage?.addEventListener("pointermove", (event) => {
-  if (!isDraggingLightbox || !lightboxImage) return;
-  dragCurrentX = event.clientX;
-  const deltaX = dragCurrentX - dragStartX;
-  lightboxImage.style.transform = `translateX(${deltaX * 0.35}px) rotate(${deltaX * 0.015}deg)`;
+  updateLightboxDrag(event.clientX);
 });
 
 const finishLightboxDrag = () => {
@@ -309,6 +390,34 @@ const finishLightboxDrag = () => {
 lightboxImage?.addEventListener("pointerup", finishLightboxDrag);
 lightboxImage?.addEventListener("pointercancel", finishLightboxDrag);
 lightboxImage?.addEventListener("lostpointercapture", finishLightboxDrag);
+
+lightbox?.addEventListener(
+  "touchstart",
+  (event) => {
+    if (!lightbox.classList.contains("is-open") || !event.touches.length) return;
+    const touch = event.touches[0];
+    beginLightboxDrag(touch.clientX, touch.clientY);
+  },
+  { passive: true }
+);
+
+lightbox?.addEventListener(
+  "touchmove",
+  (event) => {
+    if (!isDraggingLightbox || !event.touches.length) return;
+    const touch = event.touches[0];
+    const deltaX = touch.clientX - dragStartX;
+    const deltaY = touch.clientY - dragStartY;
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      event.preventDefault();
+    }
+    updateLightboxDrag(touch.clientX);
+  },
+  { passive: false }
+);
+
+lightbox?.addEventListener("touchend", finishLightboxDrag);
+lightbox?.addEventListener("touchcancel", finishLightboxDrag);
 
 document.addEventListener("keydown", (event) => {
   if (!lightbox?.classList.contains("is-open")) return;
