@@ -16,6 +16,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-anchor: none;
 }
 
 body {
@@ -1093,31 +1094,21 @@ footer button {
 }
 
 .section-fade {
-  opacity: 0;
-  transform: translate3d(0, 24px, 0);
-  filter: blur(4px);
-  transition:
-    opacity 0.58s var(--motion-ease),
-    transform 0.58s var(--motion-ease),
-    filter 0.58s var(--motion-ease);
-  transition-delay: 0s;
-  will-change: opacity, transform, filter;
-}
-
-.section-fade.is-visible {
   opacity: 1;
-  transform: translate3d(0, 0, 0);
-  filter: blur(0);
+  transform: none;
+  filter: none;
+  transition: none;
 }
 
 .section-fade:not(.cover) > * {
   opacity: 0;
-  transform: translate3d(0, 14px, 0);
+  transform: translate3d(0, -18px, 0);
+  filter: none;
 }
 
 .section-fade.is-visible:not(.cover) > * {
-  animation: riseSoft 0.52s var(--motion-ease) both;
-  animation-delay: calc(var(--stagger, 0) * 0.035s);
+  animation: cascadeDown 0.72s var(--motion-ease) both;
+  animation-delay: calc(var(--stagger, 0) * 0.022s);
 }
 
 .calendar > *,
@@ -1133,6 +1124,44 @@ footer button {
   transform: translate3d(0, 14px, 0) scale(0.99);
 }
 
+.section-fade:not(.cover) > .calendar,
+.section-fade:not(.cover) > .countdown,
+.section-fade:not(.cover) > .profile-grid,
+.section-fade:not(.cover) > .storyline,
+.section-fade:not(.cover) > .gallery-grid,
+.section-fade:not(.cover) > .contact-buttons,
+.section-fade:not(.cover) > .route-buttons {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+.section-fade.is-visible:not(.cover) > .calendar,
+.section-fade.is-visible:not(.cover) > .countdown,
+.section-fade.is-visible:not(.cover) > .profile-grid,
+.section-fade.is-visible:not(.cover) > .storyline,
+.section-fade.is-visible:not(.cover) > .gallery-grid,
+.section-fade.is-visible:not(.cover) > .contact-buttons,
+.section-fade.is-visible:not(.cover) > .route-buttons {
+  animation: none;
+}
+
+.timeline.section-fade:not(.cover) > .storyline {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+.timeline.section-fade.is-visible:not(.cover) > .storyline {
+  animation: none;
+}
+
+.timeline li {
+  opacity: 0;
+  transform: translate3d(0, -18px, 0);
+  will-change: opacity, transform;
+}
+
 .is-visible .calendar > *,
 .is-visible .countdown > *,
 .is-visible .profile-grid article,
@@ -1143,8 +1172,18 @@ footer button {
 .is-visible .contact-buttons a,
 .is-visible .address-copy,
 .is-visible .account details {
-  animation: riseSoft 0.48s var(--motion-ease) both;
-  animation-delay: calc(var(--stagger, 0) * 0.02s);
+  animation: riseSoft 0.44s var(--motion-ease) both;
+  animation-delay: calc(var(--stagger, 0) * 0.016s);
+}
+
+.gallery.is-visible .gallery-grid > * {
+  animation: galleryGlideDown 0.56s var(--motion-ease) both;
+  animation-delay: calc(var(--stagger, 0) * 0.026s);
+}
+
+.timeline.is-visible li {
+  animation: timelineGlideDown 0.62s var(--motion-ease) both;
+  animation-delay: calc(var(--stagger, 0) * 0.035s);
 }
 
 .is-visible .countdown > *,
@@ -1156,7 +1195,7 @@ footer button {
 
 .timeline li::before {
   transform: translate(-50%, -50%) scale(0);
-  transition: transform 0.35s var(--motion-ease);
+  transition: transform 0.42s var(--motion-ease);
   transition-delay: calc(var(--stagger, 0) * 0.035s);
 }
 
@@ -1165,42 +1204,76 @@ footer button {
 }
 
 .timeline li {
-  clip-path: inset(0 0 100% 0);
-  transition: clip-path 0.45s var(--motion-ease);
-  transition-delay: calc(var(--stagger, 0) * 0.035s);
+  clip-path: none;
+  transition: none;
 }
 
 .timeline.is-visible li {
-  clip-path: inset(0 0 0 0);
+  clip-path: none;
 }
 
 @keyframes equalizer {
   50% { transform: scaleY(0.42); }
 }
 
-@keyframes riseSoft {
+@keyframes cascadeDown {
   0% {
     opacity: 0;
-    transform: translate3d(0, 26px, 0) scale(0.985);
-    filter: blur(6px);
+    transform: translate3d(0, -18px, 0);
+    filter: none;
   }
   100% {
     opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
-    filter: blur(0);
+    transform: translate3d(0, 0, 0);
+    filter: none;
+  }
+}
+
+@keyframes timelineGlideDown {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -18px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes galleryGlideDown {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -16px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes riseSoft {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+    filter: none;
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: none;
   }
 }
 
 @keyframes popSoft {
   0% {
     opacity: 0;
-    transform: translate3d(0, 18px, 0) scale(0.92);
-    filter: blur(5px);
+    transform: translate3d(0, 14px, 0) scale(0.96);
+    filter: none;
   }
   100% {
     opacity: 1;
     transform: translate3d(0, 0, 0) scale(1);
-    filter: blur(0);
+    filter: none;
   }
 }
 
@@ -1575,14 +1648,14 @@ footer button {
 }
 
 .cover-copy .eyebrow {
-  margin: 0 0 12px;
+  margin: 0 0 13px;
   color: rgba(255, 255, 255, 0.9);
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(1.86rem, 7.7vw, 2.4rem);
-  font-style: italic;
+  font-family: "Great Vibes", "Cormorant Garamond", serif;
+  font-size: clamp(2.32rem, 10vw, 3.05rem);
+  font-style: normal;
   font-weight: 400;
-  letter-spacing: 0;
-  line-height: 1;
+  letter-spacing: 0.01em;
+  line-height: 0.9;
   text-transform: none;
 }
 
@@ -1601,10 +1674,41 @@ footer button {
   background: transparent;
   color: rgba(255, 255, 255, 0.92);
   font-family: "Noto Sans KR", sans-serif;
-  font-size: 0.92rem;
+  font-size: clamp(0.76rem, 3.25vw, 0.88rem);
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.035em;
+  line-height: 1.35;
   backdrop-filter: none;
+  white-space: nowrap;
+}
+
+.wedding-day .section-heading {
+  margin-bottom: 44px;
+}
+
+.wedding-day .section-heading p {
+  margin-bottom: 34px;
+  color: #433f3b;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(3rem, 13.8vw, 4.15rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.wedding-day .section-heading h2 {
+  margin-bottom: 12px;
+  color: #403b35;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: clamp(0.98rem, 4.4vw, 1.18rem);
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.wedding-day .section-heading span {
+  color: #9b948e;
+  font-size: clamp(0.82rem, 3.55vw, 0.96rem);
 }
 
 .scroll-cue {
@@ -1696,6 +1800,11 @@ footer button {
   animation:
     petalCrosswind var(--dur) linear var(--delay) infinite,
     petalSway calc(var(--dur) * 0.42) ease-in-out var(--delay) infinite alternate;
+}
+
+.cover:not(.is-cover-active) .cover-petals span,
+.cover:not(.is-cover-active) .cover-photo {
+  animation-play-state: paused;
 }
 
 .cover-petals span:nth-child(1) { --x: 12%; --w: 7px; --dur: 9.5s; --delay: -1.2s; --r: -28deg; --sway: 18px; }

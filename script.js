@@ -30,13 +30,23 @@ if ("scrollRestoration" in history) {
 }
 
 const resetInitialScroll = () => {
-  if (window.location.hash) return;
-  window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  window.scrollTo(0, 0);
 };
 
 resetInitialScroll();
-window.addEventListener("load", resetInitialScroll);
-window.addEventListener("pageshow", resetInitialScroll);
+requestAnimationFrame(resetInitialScroll);
+requestAnimationFrame(() => requestAnimationFrame(resetInitialScroll));
+window.addEventListener("load", () => {
+  resetInitialScroll();
+  setTimeout(resetInitialScroll, 0);
+  setTimeout(resetInitialScroll, 120);
+  setTimeout(resetInitialScroll, 420);
+});
+window.addEventListener("pageshow", () => {
+  resetInitialScroll();
+  setTimeout(resetInitialScroll, 0);
+});
+window.addEventListener("beforeunload", resetInitialScroll);
 
 const setText = (id, text) => {
   const element = document.getElementById(id);
@@ -49,7 +59,7 @@ setText("groomNameEn", invitationConfig.groom.en);
 setText("brideNameEn", invitationConfig.bride.en);
 setText("groomParents", invitationConfig.groom.parents);
 setText("brideParents", invitationConfig.bride.parents);
-setText("remainingNames", `${invitationConfig.groom.ko.slice(1)} ${invitationConfig.bride.ko.slice(1)}`);
+setText("remainingNames", "범종♥정원");
 
 document.querySelectorAll(".family-row b span, .profile-grid h3").forEach((element, index) => {
   element.textContent = index % 2 === 0 ? invitationConfig.groom.ko : invitationConfig.bride.ko;
@@ -174,12 +184,26 @@ const observer = new IntersectionObserver(
     });
   },
   {
-    rootMargin: "0px 0px 35% 0px",
+    rootMargin: "0px 0px -6% 0px",
     threshold: 0.01,
   }
 );
 
 document.querySelectorAll(".section-fade").forEach((section) => observer.observe(section));
+
+const coverSection = document.querySelector(".cover");
+if (coverSection) {
+  const coverMotionObserver = new IntersectionObserver(
+    ([entry]) => {
+      coverSection.classList.toggle("is-cover-active", entry.isIntersecting);
+    },
+    {
+      threshold: 0.02,
+    }
+  );
+
+  coverMotionObserver.observe(coverSection);
+}
 
 const musicToggle = document.getElementById("musicToggle");
 const backgroundMusic = document.getElementById("backgroundMusic");
