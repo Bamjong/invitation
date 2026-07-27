@@ -1,7 +1,7 @@
 ﻿const invitationConfig = {
   weddingDate: "2026-11-14T16:50:00+09:00",
-  groom: { ko: "고범종", en: "BEOMJONG", parents: "아버지 · 어머니" },
-  bride: { ko: "손정원", en: "JEONGWON", parents: "아버지 · 어머니" },
+  groom: { ko: "고범종", en: "BEOMJONG", parents: "고만두 · 장조혜" },
+  bride: { ko: "손정원", en: "JEONGWON", parents: "김세진" },
   venue: {
     name: "엘마리노 앳 인천",
     address: "인천 중구 서해대로 227",
@@ -9,10 +9,10 @@
   },
   music: "https://hellomybrand.com/wed/audio/12.mp3",
   photos: {
-    cover: "./assets/gallery/JML_5458.JPG",
+    cover: "./assets/gallery/custom-cover-main.jpg",
     intro: "./assets/gallery/thumbs/JML_6046.JPG",
-    groom: "./assets/gallery/thumbs/JML_6046.JPG",
-    bride: "./assets/gallery/thumbs/JML_6046.JPG",
+    groom: "./assets/gallery/custom-groom-about.jpg",
+    bride: "./assets/gallery/custom-bride-about.jpg",
   },
 };
 

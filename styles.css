@@ -1718,6 +1718,88 @@ footer button {
   white-space: nowrap;
 }
 
+/* Cover title variant: no heart frame, photo-forward lower title */
+.cover-frame {
+  display: none;
+}
+
+.cover .cover-photo::after {
+  background:
+    linear-gradient(180deg, rgba(16, 15, 14, 0.22), rgba(16, 15, 14, 0.22) 36%, rgba(16, 15, 14, 0.54) 68%, rgba(16, 15, 14, 0.82)),
+    radial-gradient(circle at 50% 38%, rgba(255, 255, 255, 0.04), rgba(16, 15, 14, 0.26) 72%);
+}
+
+.cover-copy {
+  bottom: auto;
+  align-self: end;
+  padding: 0 28px 30%;
+  color: rgba(255, 255, 255, 0.94);
+}
+
+.cover-copy::before,
+.cover-copy::after {
+  display: none;
+}
+
+.cover-copy .eyebrow,
+.cover-place {
+  display: none;
+}
+
+.cover h1,
+.cover-korean {
+  display: grid;
+}
+
+.cover h1 {
+  grid-template-columns: auto auto;
+  justify-content: center;
+  align-items: baseline;
+  column-gap: 14px;
+  row-gap: 1px;
+  margin: 0 0 18px;
+  color: rgba(255, 255, 255, 0.92);
+  font-family: "Cormorant Garamond", "Noto Serif KR", serif;
+  font-size: clamp(2.18rem, 9.4vw, 3.18rem);
+  font-weight: 500;
+  line-height: 1.06;
+  letter-spacing: 0.015em;
+  text-shadow: 0 3px 22px rgba(0, 0, 0, 0.58);
+}
+
+.cover h1 i {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.9em;
+  font-style: normal;
+  font-weight: 400;
+  opacity: 0.88;
+}
+
+.cover h1 span:last-child {
+  grid-column: 1 / -1;
+}
+
+.cover-korean {
+  grid-auto-flow: column;
+  justify-content: center;
+  gap: 16px;
+  margin: 0 0 9px;
+  color: rgba(255, 255, 255, 0.94);
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: clamp(0.86rem, 3.6vw, 1rem);
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.58);
+}
+
+.date-line {
+  color: rgba(255, 255, 255, 0.94);
+  font-size: clamp(0.72rem, 3vw, 0.82rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.58);
+}
+
 .wedding-day .section-heading {
   margin-bottom: 44px;
 }
