@@ -963,12 +963,30 @@ footer button {
   font-size: 0.86rem;
 }
 
+.account details p b {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--ink);
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+.account details p span {
+  display: block;
+  line-height: 1.45;
+}
+
 .account-row {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 12px;
   align-items: center;
   padding: 0 4px 18px;
+}
+
+.account-row + .account-row {
+  padding-top: 14px;
+  border-top: 1px solid rgba(118, 107, 95, 0.13);
 }
 
 .account-row button {
@@ -1121,14 +1139,14 @@ footer button {
 }
 
 .section-fade:not(.cover) > * {
-  opacity: 0;
-  transform: translate3d(0, -18px, 0);
+  opacity: 0.18;
+  transform: translate3d(0, -12px, 0);
   filter: none;
 }
 
 .section-fade.is-visible:not(.cover) > * {
-  animation: cascadeDown 0.72s var(--motion-ease) both;
-  animation-delay: calc(var(--stagger, 0) * 0.022s);
+  animation: cascadeDown 0.48s var(--motion-ease) both;
+  animation-delay: calc(var(--stagger, 0) * 0.012s);
 }
 
 .calendar > *,
@@ -1140,8 +1158,8 @@ footer button {
 .contact-buttons a,
 .address-copy,
 .account details {
-  opacity: 0;
-  transform: translate3d(0, 14px, 0) scale(0.99);
+  opacity: 0.2;
+  transform: translate3d(0, 10px, 0) scale(0.995);
 }
 
 .section-fade:not(.cover) > .calendar,
@@ -1189,28 +1207,28 @@ footer button {
 .is-visible .contact-buttons a,
 .is-visible .address-copy,
 .is-visible .account details {
-  animation: riseSoft 0.44s var(--motion-ease) both;
-  animation-delay: calc(var(--stagger, 0) * 0.016s);
+  animation: riseSoft 0.36s var(--motion-ease) both;
+  animation-delay: calc(var(--stagger, 0) * 0.01s);
 }
 
 .gallery.is-visible .gallery-grid > * {
-  animation: galleryGlideDown 0.56s var(--motion-ease) both;
-  animation-delay: calc(var(--stagger, 0) * 0.026s);
+  animation: galleryGlideDown 0.4s var(--motion-ease) both;
+  animation-delay: calc(var(--stagger, 0) * 0.014s);
 }
 
 .timeline.is-visible .storyline::before {
-  animation: timelineLineDraw 0.78s var(--motion-ease) both;
+  animation: timelineLineDraw 0.52s var(--motion-ease) both;
 }
 
 .timeline.is-visible .timeline-photo,
 .timeline.is-visible .timeline-copy {
-  animation: timelineGlideDown 0.62s var(--motion-ease) both;
-  animation-delay: calc(0.52s + (var(--stagger, 0) * 0.12s));
+  animation: timelineGlideDown 0.42s var(--motion-ease) both;
+  animation-delay: calc(0.26s + (var(--stagger, 0) * 0.055s));
   will-change: opacity, transform;
 }
 
 .timeline.is-visible .timeline-copy {
-  animation-delay: calc(0.62s + (var(--stagger, 0) * 0.12s));
+  animation-delay: calc(0.32s + (var(--stagger, 0) * 0.055s));
 }
 
 .is-visible .countdown > *,
@@ -1222,8 +1240,8 @@ footer button {
 
 .timeline li::before {
   transform: translate(-50%, -50%) scale(0);
-  transition: transform 0.42s var(--motion-ease);
-  transition-delay: calc(0.52s + (var(--stagger, 0) * 0.12s));
+  transition: transform 0.32s var(--motion-ease);
+  transition-delay: calc(0.26s + (var(--stagger, 0) * 0.055s));
 }
 
 .timeline.is-visible li::before {
@@ -1245,8 +1263,8 @@ footer button {
 
 @keyframes cascadeDown {
   0% {
-    opacity: 0;
-    transform: translate3d(0, -18px, 0);
+    opacity: 0.18;
+    transform: translate3d(0, -12px, 0);
     filter: none;
   }
   100% {
@@ -1258,8 +1276,8 @@ footer button {
 
 @keyframes timelineGlideDown {
   0% {
-    opacity: 0;
-    transform: translate3d(0, -18px, 0);
+    opacity: 0.22;
+    transform: translate3d(0, -12px, 0);
   }
   100% {
     opacity: 1;
@@ -1269,8 +1287,8 @@ footer button {
 
 @keyframes galleryGlideDown {
   0% {
-    opacity: 0;
-    transform: translate3d(0, -16px, 0);
+    opacity: 0.22;
+    transform: translate3d(0, -10px, 0);
   }
   100% {
     opacity: 1;
@@ -1289,8 +1307,8 @@ footer button {
 
 @keyframes riseSoft {
   0% {
-    opacity: 0;
-    transform: translate3d(0, 18px, 0);
+    opacity: 0.2;
+    transform: translate3d(0, 10px, 0);
     filter: none;
   }
   100% {
