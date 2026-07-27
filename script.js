@@ -7,7 +7,7 @@
     address: "인천 중구 서해대로 227",
     naverMap: "https://map.naver.com/p/search/%EC%97%98%EB%A7%88%EB%A6%AC%EB%85%B8%20%EC%95%B3%20%EC%9D%B8%EC%B2%9C/place/2072432778?c=15.00,0,0,0,dh&isCorrectAnswer=true&placePath=%2Fhome%3Ffrom%3Dmap%26fromPanelNum%3D1%26additionalHeight%3D76%26timestamp%3D202606272233%26locale%3Dko%26svcName%3Dmap_pcv5%26searchText%3D%EC%97%98%EB%A7%88%EB%A6%AC%EB%85%B8%20%EC%95%B3%20%EC%9D%B8%EC%B2%9C",
   },
-  music: "https://hellomybrand.com/wed/audio/12.mp3",
+  music: "https://hellomybrand.com/wed/audio/3.mp3",
   photos: {
     cover: "./assets/gallery/custom-cover-main.jpg",
     intro: "./assets/gallery/thumbs/JML_6046.JPG",
