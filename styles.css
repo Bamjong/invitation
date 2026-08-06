@@ -989,8 +989,14 @@ footer button {
   border-top: 1px solid rgba(118, 107, 95, 0.13);
 }
 
+.account-actions {
+  display: grid;
+  grid-template-columns: repeat(2, 76px);
+  gap: 6px;
+}
+
 .account-row button {
-  min-width: 58px;
+  width: 76px;
   min-height: 34px;
   border: 1px solid var(--line);
   border-radius: 6px;
@@ -998,6 +1004,12 @@ footer button {
   color: #6a6058;
   font-size: 0.78rem;
   cursor: pointer;
+}
+
+.account-row .kakaopay-button {
+  border-color: #f3d900;
+  background: #fee500;
+  color: #191919;
 }
 
 footer {

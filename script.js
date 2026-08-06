@@ -224,6 +224,21 @@ document.getElementById("copyAddressButton")?.addEventListener("click", () => co
 document.querySelectorAll("[data-copy-account]").forEach((button) => {
   button.addEventListener("click", () => copyText(button.dataset.copyAccount, "계좌번호가 복사되었습니다."));
 });
+document.querySelectorAll("[data-kakaopay-link]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const link = button.dataset.kakaopayLink;
+    if (link) {
+      window.open(link, "_blank", "noopener,noreferrer");
+      return;
+    }
+    if (musicToast) {
+      musicToast.textContent = "카카오페이 송금 링크를 준비 중입니다.";
+      musicToast.style.animation = "none";
+      musicToast.offsetHeight;
+      musicToast.style.animation = "";
+    }
+  });
+});
 
 const lightbox = document.getElementById("galleryLightbox");
 const lightboxImage = lightbox?.querySelector("img");
