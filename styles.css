@@ -995,6 +995,10 @@ footer button {
   gap: 6px;
 }
 
+.account-actions-single {
+  grid-template-columns: 76px;
+}
+
 .account-row button {
   width: 76px;
   min-height: 34px;
