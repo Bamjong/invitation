@@ -880,6 +880,8 @@ footer button {
   font-size: 0.95rem;
   font-weight: 600;
   line-height: 1.55;
+  word-break: keep-all;
+  text-wrap: balance;
 }
 
 .timeline-copy h3::before {
@@ -898,6 +900,8 @@ footer button {
   color: #8a8178;
   font-size: 0.84rem;
   line-height: 1.8;
+  word-break: keep-all;
+  text-wrap: balance;
 }
 
 .gallery-grid {
