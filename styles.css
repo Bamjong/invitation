@@ -556,7 +556,145 @@ footer {
 }
 
 .family-row b {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   font-weight: 500;
+}
+
+.couple-phone {
+  width: 32px;
+  height: 32px;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid rgba(157, 118, 103, 0.3);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.66);
+  color: var(--accent);
+  font-size: 0.92rem;
+}
+
+.family-contact-button {
+  width: 100%;
+  min-height: 44px;
+  margin-top: 14px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.58);
+  color: #6a6058;
+  font-size: 0.84rem;
+  cursor: pointer;
+}
+
+.family-contact-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: none;
+  place-items: center;
+  padding: 24px;
+  background: rgba(40, 35, 31, 0.62);
+  backdrop-filter: blur(8px);
+}
+
+.family-contact-modal.is-open {
+  display: grid;
+}
+
+.family-contact-panel {
+  position: relative;
+  width: min(100%, 390px);
+  padding: 34px 22px 28px;
+  border-radius: 16px;
+  background: #fbfaf7;
+  box-shadow: 0 24px 70px rgba(36, 31, 27, 0.24);
+}
+
+.family-contact-panel > h2 {
+  margin: 0 0 28px;
+  text-align: center;
+  font-size: 1.08rem;
+  font-weight: 500;
+}
+
+.family-contact-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  background: transparent;
+  color: #756c64;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.family-contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.family-contact-grid section {
+  min-width: 0;
+}
+
+.family-contact-grid h3 {
+  margin: 0 0 24px;
+  color: #6c9bae;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.family-contact-grid .bride-family h3 {
+  color: #c77d7d;
+}
+
+.parent-contact + .parent-contact {
+  margin-top: 28px;
+}
+
+.parent-contact p {
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.parent-contact p b {
+  font-weight: 500;
+}
+
+.parent-contact > div {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.parent-contact button,
+.parent-contact a {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(108, 155, 174, 0.3);
+  border-radius: 50%;
+  background: rgba(108, 155, 174, 0.1);
+  color: #6c9bae;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.bride-family .parent-contact button,
+.bride-family .parent-contact a {
+  border-color: rgba(199, 125, 125, 0.3);
+  background: rgba(199, 125, 125, 0.1);
+  color: #c77d7d;
 }
 
 .contact-buttons,

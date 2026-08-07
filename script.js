@@ -10,7 +10,7 @@
   music: "https://hellomybrand.com/wed/audio/3.mp3",
   photos: {
     cover: "./assets/gallery/custom-cover-main.jpg",
-    intro: "./assets/gallery/thumbs/JML_6046.JPG",
+    intro: "./assets/gallery/thumbs/JML_5532.JPG",
     groom: "./assets/gallery/custom-groom-about.jpg",
     bride: "./assets/gallery/custom-bride-about.jpg",
   },
@@ -45,8 +45,10 @@ setText("brideNameEn", invitationConfig.bride.en);
 setText("groomParents", invitationConfig.groom.parents);
 setText("brideParents", invitationConfig.bride.parents);
 setText("remainingNames", "범종♥정원");
+setText("familyGroomName", invitationConfig.groom.ko);
+setText("familyBrideName", invitationConfig.bride.ko);
 
-document.querySelectorAll(".family-row b span, .profile-grid h3").forEach((element, index) => {
+document.querySelectorAll(".profile-grid h3").forEach((element, index) => {
   element.textContent = index % 2 === 0 ? invitationConfig.groom.ko : invitationConfig.bride.ko;
 });
 
@@ -240,6 +242,35 @@ document.querySelectorAll("[data-kakaopay-link]").forEach((button) => {
   });
 });
 
+const familyContactModal = document.getElementById("familyContactModal");
+const openFamilyContactButton = document.getElementById("openFamilyContactButton");
+const closeFamilyContactModal = () => {
+  if (!familyContactModal) return;
+  familyContactModal.classList.remove("is-open");
+  familyContactModal.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+};
+openFamilyContactButton?.addEventListener("click", () => {
+  if (!familyContactModal) return;
+  familyContactModal.classList.add("is-open");
+  familyContactModal.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+});
+familyContactModal?.querySelector(".family-contact-close")?.addEventListener("click", closeFamilyContactModal);
+familyContactModal?.addEventListener("click", (event) => {
+  if (event.target === familyContactModal) closeFamilyContactModal();
+});
+document.querySelectorAll("[data-missing-parent-contact]").forEach((button) => {
+  button.addEventListener("click", () => {
+    if (musicToast) musicToast.textContent = "혼주 연락처를 준비 중입니다.";
+  });
+});
+document.querySelectorAll("[data-phone-number]").forEach((button) => {
+  button.addEventListener("click", () => {
+    window.location.href = `tel:${button.dataset.phoneNumber}`;
+  });
+});
+
 const lightbox = document.getElementById("galleryLightbox");
 const lightboxImage = lightbox?.querySelector("img");
 const galleryImages = Array.from(document.querySelectorAll(".gallery-grid img"));
@@ -330,6 +361,10 @@ lightbox?.addEventListener("touchmove", (event) => {
 lightbox?.addEventListener("touchend", finishLightboxDrag);
 lightbox?.addEventListener("touchcancel", finishLightboxDrag);
 document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && familyContactModal?.classList.contains("is-open")) {
+    closeFamilyContactModal();
+    return;
+  }
   if (!lightbox?.classList.contains("is-open")) return;
   if (event.key === "Escape") closeLightbox();
   if (event.key === "ArrowLeft") moveLightbox(-1);
