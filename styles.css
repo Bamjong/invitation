@@ -769,7 +769,8 @@ footer button {
 }
 
 .gallery-grid button {
-  min-height: 170px;
+  min-height: 0;
+  aspect-ratio: 1 / 1;
   border: 0;
   border-radius: 4px;
   cursor: pointer;
@@ -784,12 +785,33 @@ footer button {
 }
 
 .gallery-grid .tall {
-  grid-row: span 2;
+  grid-row: auto;
 }
 
 .gallery-grid .wide {
-  grid-column: span 2;
-  min-height: 150px;
+  grid-column: auto;
+  min-height: 0;
+}
+
+.gallery-grid:not(.is-expanded) > button:nth-child(n + 7) {
+  display: none;
+}
+
+.gallery-more-button {
+  width: 100%;
+  min-height: 46px;
+  margin-top: 14px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.72);
+  color: #6a6058;
+  font-size: 0.84rem;
+  cursor: pointer;
+}
+
+.gallery-more-button:focus-visible {
+  outline: 2px solid rgba(157, 118, 103, 0.45);
+  outline-offset: 3px;
 }
 
 .location {

@@ -243,6 +243,8 @@ document.querySelectorAll("[data-kakaopay-link]").forEach((button) => {
 const lightbox = document.getElementById("galleryLightbox");
 const lightboxImage = lightbox?.querySelector("img");
 const galleryImages = Array.from(document.querySelectorAll(".gallery-grid img"));
+const galleryGrid = document.querySelector(".gallery-grid");
+const galleryMoreButton = document.getElementById("galleryMoreButton");
 let activeGalleryIndex = 0;
 let dragStartX = 0;
 let dragCurrentX = 0;
@@ -280,6 +282,12 @@ const moveLightbox = (direction) => {
   }, 120);
 };
 galleryImages.forEach((image, index) => image.closest("button")?.addEventListener("click", () => openLightbox(index)));
+galleryMoreButton?.addEventListener("click", () => {
+  const isExpanded = galleryGrid?.classList.toggle("is-expanded") ?? false;
+  galleryMoreButton.setAttribute("aria-expanded", String(isExpanded));
+  galleryMoreButton.textContent = isExpanded ? "사진 접기" : "사진 더보기";
+  if (!isExpanded) document.querySelector(".gallery")?.scrollIntoView({ behavior: "smooth", block: "start" });
+});
 lightbox?.querySelector(".lightbox-close")?.addEventListener("click", closeLightbox);
 lightbox?.addEventListener("click", (event) => { if (event.target === lightbox) closeLightbox(); });
 const beginLightboxDrag = (clientX, clientY = 0) => {
