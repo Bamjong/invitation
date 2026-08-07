@@ -10,7 +10,7 @@
   music: "https://hellomybrand.com/wed/audio/3.mp3",
   photos: {
     cover: "./assets/gallery/custom-cover-main.jpg",
-    intro: "./assets/gallery/thumbs/JML_5532.JPG",
+    intro: "./assets/gallery/JML_5532.JPG",
     groom: "./assets/gallery/custom-groom-about.jpg",
     bride: "./assets/gallery/custom-bride-about.jpg",
   },
