@@ -1821,10 +1821,26 @@ footer button {
 }
 
 .profile-grid .profile-name > span {
-  display: inline;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
   color: inherit;
   font-size: inherit;
-  line-height: inherit;
+  line-height: 1;
+}
+
+.profile-grid .profile-name > .profile-role {
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  color: #6c9bae;
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.profile-grid article:nth-child(2) .profile-role {
+  color: #c77d7d;
 }
 
 .profile-grid .profile-name .couple-phone span {
