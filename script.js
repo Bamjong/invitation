@@ -45,12 +45,8 @@ setText("brideNameEn", invitationConfig.bride.en);
 setText("groomParents", invitationConfig.groom.parents);
 setText("brideParents", invitationConfig.bride.parents);
 setText("remainingNames", "범종♥정원");
-setText("familyGroomName", invitationConfig.groom.ko);
-setText("familyBrideName", invitationConfig.bride.ko);
-
-document.querySelectorAll(".profile-grid h3").forEach((element, index) => {
-  element.textContent = index % 2 === 0 ? invitationConfig.groom.ko : invitationConfig.bride.ko;
-});
+setText("profileGroomName", invitationConfig.groom.ko);
+setText("profileBrideName", invitationConfig.bride.ko);
 
 Object.entries(invitationConfig.photos).forEach(([key, src]) => {
   document.querySelectorAll(`[data-photo="${key}"]`).forEach((slot) => {

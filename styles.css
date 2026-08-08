@@ -541,12 +541,16 @@ footer {
 }
 
 .family {
-  background: #f4eee8;
+  display: block;
+  width: 100%;
+  margin: 34px auto 0;
+  padding: 0;
   text-align: center;
 }
 
 .family-row {
-  margin-bottom: 26px;
+  min-width: 0;
+  margin: 0;
 }
 
 .family-row p {
@@ -576,14 +580,24 @@ footer {
 
 .family-contact-button {
   width: 100%;
-  min-height: 44px;
-  margin-top: 14px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.58);
-  color: #6a6058;
-  font-size: 0.84rem;
+  min-height: 54px;
+  margin-top: 0;
+  border: 1px solid rgba(132, 105, 91, 0.38);
+  border-radius: 10px;
+  background: rgba(255, 251, 246, 0.86);
+  box-shadow: 0 5px 14px rgba(91, 73, 62, 0.08);
+  color: #4f453e;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
   cursor: pointer;
+}
+
+.family-contact-button span {
+  display: inline-block;
+  margin-right: 7px;
+  color: #927566;
+  font-size: 1.06rem;
 }
 
 .family-contact-modal {
@@ -662,7 +676,7 @@ footer {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  font-size: 0.9rem;
+  font-size: 1rem;
   white-space: nowrap;
 }
 
@@ -678,15 +692,16 @@ footer {
 
 .parent-contact button,
 .parent-contact a {
-  width: 30px;
-  height: 30px;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
   display: grid;
   place-items: center;
   border: 1px solid rgba(108, 155, 174, 0.3);
   border-radius: 50%;
   background: rgba(108, 155, 174, 0.1);
   color: #6c9bae;
-  font-size: 1rem;
+  font-size: 1.08rem;
   cursor: pointer;
 }
 
@@ -1698,7 +1713,7 @@ footer button {
 /* ABOUT layout refresh - keep original colors, change structure only */
 .about {
   padding-top: 82px;
-  padding-bottom: 126px;
+  padding-bottom: 76px;
 }
 
 .about .section-heading {
@@ -1777,6 +1792,25 @@ footer button {
 .profile-grid span {
   display: block;
   line-height: 1.7;
+}
+
+.profile-grid .profile-name {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.profile-grid .profile-name > span {
+  display: inline;
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.profile-grid .profile-name .couple-phone span {
+  color: inherit;
+  line-height: 1;
 }
 
 @media (max-width: 360px) {

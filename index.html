@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Great+Vibes&family=Noto+Sans+KR:wght@300;400;500;600&family=Noto+Serif+KR:wght@300;400;500;600&display=swap" rel="stylesheet" />
     <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=3j0ictb9jw"></script>
-    <link rel="stylesheet" href="./styles.css?v=20260808-account-nowrap" />
+    <link rel="stylesheet" href="./styles.css?v=20260808-about-spacing" />
   </head>
   <body>
     <div class="toast" id="musicToast">배경음악이 준비되었습니다.</div>
@@ -64,17 +64,14 @@
         <p class="remaininㄹg"><b id="remainingNames">범종♥정원</b> 결혼식이 <strong id="remainingDays">0일</strong> 남았습니다</p>
       </section>
 
-      <section class="family section-fade">
-        <div class="family-row"><p><span id="groomParents">고만두 · 장조혜</span>의 아들</p><b>신랑 <span id="familyGroomName">고범종</span><a class="couple-phone" href="tel:010-7556-7894" aria-label="신랑 고범종에게 전화하기"><span aria-hidden="true">☎</span></a></b></div>
-        <div class="family-row"><p><span id="brideParents">김세진</span>의 딸</p><b>신부 <span id="familyBrideName">손정원</span><a class="couple-phone" href="tel:010-7403-0316" aria-label="신부 손정원에게 전화하기"><span aria-hidden="true">☎</span></a></b></div>
-        <button class="family-contact-button" type="button" id="openFamilyContactButton">혼주 연락처</button>
-      </section>
-
       <section class="about section-fade">
         <div class="section-heading"><p>ABOUT US</p><h2>ABOUT US</h2><p class="about-korean-title">저희 커플을 소개합니다</p><span>하나로 이어진 두 개의 마음</span></div>
         <div class="profile-grid">
-          <article><div class="profile-photo photo-slot" data-photo="groom"><span>Groom Photo</span></div><p>신랑</p><h3>고범종</h3><span>1997년 2월 인천 출생<br /></span></article>
-          <article><div class="profile-photo photo-slot" data-photo="bride"><span>Bride Photo</span></div><p>신부</p><h3>손정원</h3><span>2000년 3월 서울 출생<br /></span></article>
+          <article><div class="profile-photo photo-slot" data-photo="groom"><span>Groom Photo</span></div><p>신랑</p><h3 class="profile-name"><span id="profileGroomName">고범종</span><a class="couple-phone" href="tel:010-7556-7894" aria-label="신랑 고범종에게 전화하기"><span aria-hidden="true">☎</span></a></h3><span>1997년 2월 인천 출생<br /></span></article>
+          <article><div class="profile-photo photo-slot" data-photo="bride"><span>Bride Photo</span></div><p>신부</p><h3 class="profile-name"><span id="profileBrideName">손정원</span><a class="couple-phone" href="tel:010-7403-0316" aria-label="신부 손정원에게 전화하기"><span aria-hidden="true">☎</span></a></h3><span>2000년 3월 서울 출생<br /></span></article>
+        </div>
+        <div class="family">
+          <button class="family-contact-button" type="button" id="openFamilyContactButton"><span aria-hidden="true">☎</span> 혼주 연락처</button>
         </div>
       </section>
 
@@ -146,7 +143,7 @@
     </div>
     <div class="lightbox" id="galleryLightbox" aria-hidden="true"><button class="lightbox-close" type="button" aria-label="사진 닫기">×</button><img src="" alt="" /><div class="lightbox-hint">좌우로 밀어 사진 넘기기</div></div>
 
-    <script src="./script.js?v=intro-full-resolution"></script>
+    <script src="./script.js?v=20260808-profile-contacts"></script>
     <script>
       document.documentElement.setAttribute("data-map-script-ready", "true");
       window.initWeddingMap = function () {
