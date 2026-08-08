@@ -1112,13 +1112,44 @@ footer button {
 }
 
 .account details {
-  border-bottom: 1px solid var(--line);
+  margin-top: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(118, 107, 95, 0.16);
+  border-radius: 12px;
+  background: rgba(255, 252, 248, 0.54);
+}
+
+.account .groom-account {
+  border-left: 3px solid rgba(122, 132, 132, 0.52);
+}
+
+.account .bride-account {
+  border-left: 3px solid rgba(155, 130, 126, 0.48);
 }
 
 .account summary {
   cursor: pointer;
-  padding: 18px 4px;
+  padding: 18px 16px;
   font-size: 0.94rem;
+  font-weight: 500;
+  list-style-position: inside;
+}
+
+.account summary span {
+  display: inline-flex;
+  margin-right: 5px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  color: #fffdf9;
+  font-size: 0.8rem;
+}
+
+.account .groom-account summary span {
+  background: #858e8d;
+}
+
+.account .bride-account summary span {
+  background: #a28a86;
 }
 
 .account details p {
@@ -1145,7 +1176,7 @@ footer button {
   grid-template-columns: 1fr auto;
   gap: 12px;
   align-items: center;
-  padding: 0 4px 18px;
+  padding: 0 16px 18px;
 }
 
 .account-row + .account-row {
