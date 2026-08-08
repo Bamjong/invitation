@@ -1169,6 +1169,9 @@ footer button {
 .account details p span {
   display: block;
   line-height: 1.45;
+  white-space: nowrap;
+  font-size: 0.82rem;
+  letter-spacing: -0.035em;
 }
 
 .account-row {
