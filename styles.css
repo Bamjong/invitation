@@ -1086,6 +1086,25 @@ footer button {
   text-align: center;
 }
 
+.venue-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 12px;
+  padding: 8px 13px;
+  border: 1px solid rgba(132, 105, 91, 0.24);
+  border-radius: 999px;
+  background: rgba(255, 251, 246, 0.72);
+  color: #685b52;
+  font-size: 0.86rem;
+  font-weight: 500;
+}
+
+.venue-phone span {
+  color: #927566;
+  font-size: 0.95rem;
+}
+
 .visit-info {
   display: grid;
   gap: 10px;
