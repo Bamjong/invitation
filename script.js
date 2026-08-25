@@ -277,36 +277,81 @@ let dragStartX = 0;
 let dragCurrentX = 0;
 let dragStartY = 0;
 let isDraggingLightbox = false;
-const setLightboxImage = () => {
+let activeLightboxPointer = null;
+let didDragLightbox = false;
+let lightboxRenderToken = 0;
+const lightboxPreloads = new Map();
+const normalizeGalleryIndex = (index) => (index + galleryImages.length) % galleryImages.length;
+const getGalleryImageSources = (image) => ({
+  preview: image.currentSrc || image.src,
+  full: image.dataset.full || image.currentSrc || image.src,
+});
+const preloadLightboxImage = (index) => {
+  if (!galleryImages.length) return Promise.resolve(false);
+  const image = galleryImages[normalizeGalleryIndex(index)];
+  if (!image) return Promise.resolve(false);
+  const { full } = getGalleryImageSources(image);
+  if (lightboxPreloads.has(full)) return lightboxPreloads.get(full);
+  const preloadPromise = new Promise((resolve) => {
+    const preloader = new Image();
+    preloader.decoding = "async";
+    preloader.onload = async () => {
+      try { await preloader.decode?.(); } catch { /* 이미 로드된 이미지는 그대로 사용 */ }
+      resolve(true);
+    };
+    preloader.onerror = () => resolve(false);
+    preloader.src = full;
+  });
+  lightboxPreloads.set(full, preloadPromise);
+  return preloadPromise;
+};
+const warmLightboxNeighbors = () => {
+  [0, -1, 1, -2, 2].forEach((offset) => { void preloadLightboxImage(activeGalleryIndex + offset); });
+};
+const setLightboxImage = async () => {
   const image = galleryImages[activeGalleryIndex];
   if (!image || !lightboxImage) return;
-  lightboxImage.src = image.dataset.full || image.src;
+  const renderIndex = activeGalleryIndex;
+  const renderToken = ++lightboxRenderToken;
+  const { preview, full } = getGalleryImageSources(image);
+  lightboxImage.src = preview;
   lightboxImage.alt = image.alt;
+  lightbox?.classList.add("is-loading");
+  const isLoaded = await preloadLightboxImage(renderIndex);
+  if (renderToken !== lightboxRenderToken || renderIndex !== activeGalleryIndex || !lightbox?.classList.contains("is-open")) return;
+  if (isLoaded) {
+    lightboxImage.src = full;
+    try { await lightboxImage.decode?.(); } catch { /* 썸네일 표시를 유지 */ }
+  }
+  lightbox.classList.remove("is-loading");
 };
 const openLightbox = (index) => {
   if (!lightbox || !lightboxImage || !galleryImages.length) return;
   activeGalleryIndex = index;
-  setLightboxImage();
   lightbox.classList.add("is-open");
   lightbox.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
+  void setLightboxImage();
+  warmLightboxNeighbors();
 };
 const closeLightbox = () => {
   if (!lightbox || !lightboxImage) return;
+  lightboxRenderToken += 1;
   lightbox.classList.remove("is-open");
+  lightbox.classList.remove("is-loading", "is-switching", "is-dragging");
   lightbox.setAttribute("aria-hidden", "true");
   lightboxImage.src = "";
+  lightboxImage.style.transform = "";
   document.body.style.overflow = "";
 };
 const moveLightbox = (direction) => {
   if (!galleryImages.length || !lightbox || !lightboxImage) return;
-  activeGalleryIndex = (activeGalleryIndex + direction + galleryImages.length) % galleryImages.length;
+  activeGalleryIndex = normalizeGalleryIndex(activeGalleryIndex + direction);
   lightbox.classList.add("is-switching");
-  window.setTimeout(() => {
-    setLightboxImage();
-    lightboxImage.style.transform = "";
-    lightbox.classList.remove("is-switching");
-  }, 120);
+  lightboxImage.style.transform = "";
+  void setLightboxImage();
+  warmLightboxNeighbors();
+  requestAnimationFrame(() => requestAnimationFrame(() => lightbox.classList.remove("is-switching")));
 };
 galleryImages.forEach((image, index) => image.closest("button")?.addEventListener("click", () => openLightbox(index)));
 galleryMoreButton?.addEventListener("click", () => {
@@ -316,10 +361,18 @@ galleryMoreButton?.addEventListener("click", () => {
   if (!isExpanded) document.querySelector(".gallery")?.scrollIntoView({ behavior: "smooth", block: "start" });
 });
 lightbox?.querySelector(".lightbox-close")?.addEventListener("click", closeLightbox);
-lightbox?.addEventListener("click", (event) => { if (event.target === lightbox) closeLightbox(); });
-const beginLightboxDrag = (clientX, clientY = 0) => {
-  if (!lightbox || !lightboxImage) return;
+lightbox?.addEventListener("click", (event) => {
+  if (didDragLightbox) {
+    didDragLightbox = false;
+    return;
+  }
+  if (event.target === lightbox) closeLightbox();
+});
+const beginLightboxDrag = (clientX, clientY = 0, pointerId = null) => {
+  if (!lightbox || !lightboxImage || isDraggingLightbox) return;
   isDraggingLightbox = true;
+  activeLightboxPointer = pointerId;
+  didDragLightbox = false;
   dragStartX = clientX;
   dragCurrentX = clientX;
   dragStartY = clientY;
@@ -329,29 +382,49 @@ const updateLightboxDrag = (clientX) => {
   if (!isDraggingLightbox || !lightboxImage) return;
   dragCurrentX = clientX;
   const deltaX = dragCurrentX - dragStartX;
+  if (Math.abs(deltaX) > 8) didDragLightbox = true;
   lightboxImage.style.transform = "translateX(" + deltaX * 0.35 + "px) rotate(" + deltaX * 0.015 + "deg)";
 };
 const finishLightboxDrag = () => {
   if (!isDraggingLightbox || !lightbox || !lightboxImage) return;
   const deltaX = dragCurrentX - dragStartX;
   isDraggingLightbox = false;
+  activeLightboxPointer = null;
   lightbox.classList.remove("is-dragging");
   lightboxImage.style.transform = "";
   if (Math.abs(deltaX) > 70) moveLightbox(deltaX < 0 ? 1 : -1);
 };
-lightboxImage?.addEventListener("pointerdown", (event) => { beginLightboxDrag(event.clientX, event.clientY); lightboxImage.setPointerCapture?.(event.pointerId); });
-lightboxImage?.addEventListener("pointermove", (event) => updateLightboxDrag(event.clientX));
-lightboxImage?.addEventListener("pointerup", finishLightboxDrag);
-lightboxImage?.addEventListener("pointercancel", finishLightboxDrag);
-lightboxImage?.addEventListener("lostpointercapture", finishLightboxDrag);
-lightbox?.addEventListener("touchstart", (event) => { const touch = event.touches[0]; if (touch) beginLightboxDrag(touch.clientX, touch.clientY); }, { passive: true });
-lightbox?.addEventListener("touchmove", (event) => {
-  if (!isDraggingLightbox) return;
+lightbox?.addEventListener("pointerdown", (event) => {
+  if (event.target.closest?.(".lightbox-close")) return;
+  beginLightboxDrag(event.clientX, event.clientY, event.pointerId);
+  lightbox.setPointerCapture?.(event.pointerId);
+});
+lightbox?.addEventListener("pointermove", (event) => {
+  if (activeLightboxPointer !== event.pointerId) return;
+  updateLightboxDrag(event.clientX);
+});
+lightbox?.addEventListener("pointerup", (event) => {
+  if (activeLightboxPointer !== event.pointerId) return;
+  finishLightboxDrag();
+});
+lightbox?.addEventListener("pointercancel", finishLightboxDrag);
+lightbox?.addEventListener("lostpointercapture", finishLightboxDrag);
+lightbox?.addEventListener("mousedown", (event) => {
+  if (event.target.closest?.(".lightbox-close")) return;
+  beginLightboxDrag(event.clientX, event.clientY);
+});
+lightbox?.addEventListener("mousemove", (event) => updateLightboxDrag(event.clientX));
+lightbox?.addEventListener("mouseup", finishLightboxDrag);
+lightbox?.addEventListener("mouseleave", () => { if (isDraggingLightbox) finishLightboxDrag(); });
+lightbox?.addEventListener("dragstart", (event) => event.preventDefault());
+lightbox?.addEventListener("touchstart", (event) => {
   const touch = event.touches[0];
-  if (!touch) return;
-  const deltaX = touch.clientX - dragStartX;
-  const deltaY = touch.clientY - dragStartY;
-  if (Math.abs(deltaX) > Math.abs(deltaY)) event.preventDefault();
+  if (touch) beginLightboxDrag(touch.clientX, touch.clientY);
+}, { passive: true });
+lightbox?.addEventListener("touchmove", (event) => {
+  const touch = event.touches[0];
+  if (!touch || !isDraggingLightbox) return;
+  if (Math.abs(touch.clientX - dragStartX) > Math.abs(touch.clientY - dragStartY)) event.preventDefault();
   updateLightboxDrag(touch.clientX);
 }, { passive: false });
 lightbox?.addEventListener("touchend", finishLightboxDrag);
