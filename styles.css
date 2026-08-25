@@ -1210,8 +1210,8 @@ footer button {
 
 .account-row {
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 12px;
+  grid-template-columns: minmax(0, 1fr) 150px;
+  gap: 6px;
   align-items: center;
   padding: 0 16px 18px;
 }
@@ -1223,16 +1223,16 @@ footer button {
 
 .account-actions {
   display: grid;
-  grid-template-columns: repeat(2, 76px);
+  grid-template-columns: repeat(2, 72px);
   gap: 6px;
 }
 
-.account-actions-single {
-  grid-template-columns: 76px;
+.account-actions-single button {
+  grid-column: 2;
 }
 
 .account-row button {
-  width: 76px;
+  width: 72px;
   min-height: 34px;
   border: 1px solid var(--line);
   border-radius: 6px;
