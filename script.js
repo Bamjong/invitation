@@ -230,7 +230,7 @@ document.querySelectorAll("[data-kakaopay-link]").forEach((button) => {
       return;
     }
     if (musicToast) {
-      musicToast.textContent = "카카오페이 송금 링크를 준비 중입니다.";
+      musicToast.textContent = "카카오 송금 링크를 준비 중입니다.";
       musicToast.style.animation = "none";
       musicToast.offsetHeight;
       musicToast.style.animation = "";
