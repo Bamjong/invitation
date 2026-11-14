@@ -1135,6 +1135,47 @@ footer button {
   line-height: 1.65;
 }
 
+.exit-map-card {
+  margin: 10px 0 0;
+  padding: 10px;
+  border: 1px solid rgba(231, 223, 213, 0.9);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.exit-map-card a,
+.exit-map-card img {
+  display: block;
+  width: 100%;
+}
+
+.exit-map-card a {
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.exit-map-card img {
+  height: auto;
+}
+
+.exit-map-card figcaption {
+  display: grid;
+  gap: 3px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.exit-map-card figcaption strong {
+  color: var(--ink);
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.exit-map-card figcaption span {
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
 .address-copy {
   width: 100%;
   margin-top: 10px;
